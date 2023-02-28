@@ -1,0 +1,202 @@
+fabi
+ — 
+25/02/2023 13:22
+hätte am 4. zeit, weiß aber wie gesagt noch nicht, ob ich da schon eine hose habe
+IamLuis
+ — 
+25/02/2023 13:24
+Wichtig ist für mich, dass man einiges in die Wege leitet damit es stattfindet und nicht hofft/spontan entscheidet.
+Einiges? Töten würd ich nicht, aber dass man innerhalb einer Woche eine Skihose hat, ist kein Hexenwerk
+fabi
+ — 
+25/02/2023 13:25
+ja werde es versuchen, kann es aber nicht versprechen
+IamLuis
+ — 
+25/02/2023 13:26
+Passt - aber dann sind wir auch nicht beim Militär wenn ich dich drum bitte, mir am Mittwoch zu sagen ob das was wird oder nicht....
+fabi
+ — 
+25/02/2023 13:28
+kann ich machen
+IamLuis
+ — 
+25/02/2023 13:28
+danke
+fabi
+ — 
+26/02/2023 23:26
+hab ich grade gesehen
+Image
+IamLuis
+ — 
+26/02/2023 23:26
+och ne
+fabi
+ — 
+26/02/2023 23:26
+haha
+IamLuis
+ — 
+26/02/2023 23:26
+während dem Unterricht?
+wird richtig unangenehm
+gar kein Bock 
+fabi
+ — 
+26/02/2023 23:27
+yep
+IamLuis
+ — 
+26/02/2023 23:27
+ich schwänz
+fabi
+ — 
+26/02/2023 23:27
+vielleicht können wir in anderen raum
+IamLuis
+ — 
+26/02/2023 23:27
+ja hoffentlich
+fabi
+ — 
+26/02/2023 23:27
+meinst, du der spricht nur mit uns?
+IamLuis
+ — 
+26/02/2023 23:27
+keine Ahnung
+fabi
+ — 
+26/02/2023 23:27
+ok
+IamLuis
+ — 
+26/02/2023 23:27
+Franz immer kryptisch
+fabi
+ — 
+26/02/2023 23:27
+werden wir sehen
+ja
+vor allem, das könnte man per email auch klären
+IamLuis
+ — 
+26/02/2023 23:27
+aber schreib ihm, dass wir das nicht während dem Unterricht in der Klasse machen
+sicher ned
+IamLuis
+ — 
+26/02/2023 23:28
+ja
+fabi
+ — 
+26/02/2023 23:28
+ist vom donnerstag die mail 😂
+und jetzt um 24 uhr schreib ich nicht mehr
+IamLuis
+ — 
+26/02/2023 23:28
+gg
+fabi
+ — 
+26/02/2023 23:28
+bissl spät
+IamLuis
+ — 
+26/02/2023 23:28
+ja ich red dann morgen nix
+darfst du machen 😂
+fabi
+ — 
+26/02/2023 23:28
+vielleicht redet er ja eh nicht mit uns
+🤞
+IamLuis
+ — 
+26/02/2023 23:29
+ignorieren wir ihn einfach 😂
+fabi
+ — 
+26/02/2023 23:29
+passt
+sagen wir ihm, er soll sich verpissen
+hast schon die kostüme von fasching gesehen?
+IamLuis
+ — 
+26/02/2023 23:30
+ja
+IamLuis
+ — 
+26/02/2023 23:30
+ja
+wir sind alpha
+fabi
+ — 
+26/02/2023 23:33
+sind wir nicht diese woche mittwoch wieder bei der ak?
+IamLuis
+ — 
+26/02/2023 23:33
+keine AHnung
+fabi
+ — 
+26/02/2023 23:34
+ok
+gehe mal schlafen
+gn
+IamLuis
+ — 
+26/02/2023 23:34
+gn
+fabi
+ — 
+Today at 11:57
+https://paste.sefranek.io/83688035-9b97-4b4a-9368-534b9d6d9a68
+IamLuis
+ — 
+Today at 15:36
+
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# Compiled output
+/dist
+/tmp
+/out-tsc
+/bazel-out
+
+# Node
+/.angular/cache
+/node_modules
+npm-debug.log
+yarn-error.log
+
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# Miscellaneous
+/.angular/cache
+.sass-cache/
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+
+# System files
+.DS_Store
+Thumbs.db
