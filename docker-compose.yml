@@ -1,0 +1,36 @@
+version: "3"
+services:
+ web:
+  build:
+   context: ./web
+   dockerfile: Dockerfile
+  env_file:
+   - .env
+  ports:
+   - ${WEB_PORT}:4200
+  volumes:
+   - ./web/src:/app/src
+  depends_on:
+   - api
+ api:
+  build:
+   context: ./api
+   dockerfile: Dockerfile
+  env_file:
+   - .env
+  ports:
+   - ${API_PORT}:${API_PORT}
+  volumes:
+   - ./api/src:/app/src
+  depends_on:
+   - db
+ db:
+  image: postgres:15-alpine
+  environment:
+   - POSTGRES_USER=${POSTGRES_USER}
+   - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+   - POSTGRES_DB=${POSTGRES_DB}
+  ports:
+   - ${DB_PORT}:5432
+  volumes:
+   - ./db:/var/lib/postgresql/data

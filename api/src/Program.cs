@@ -3,4 +3,5 @@ var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
 
-app.Run();
+string port = Environment.GetEnvironmentVariable("API_PORT");
+app.Run($"http://+:{port}");

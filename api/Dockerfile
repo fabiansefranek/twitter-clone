@@ -5,4 +5,4 @@ COPY . ./
 
 ENV DOTNET_WATCH_RESTART_ON_RUDE_EDIT=1
 
-ENTRYPOINT ["dotnet", "watch", "run", "--urls", "http://+:5000"]
+ENTRYPOINT ["dotnet", "watch", "run"]
