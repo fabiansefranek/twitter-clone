@@ -13,6 +13,7 @@ public class Startup
         string jwtSecret = Environment.GetEnvironmentVariable("JWT_SECRET")!;
         services.AddSwaggerGen();
         services.AddEndpointsApiExplorer();
+        services.AddCors();
         services.AddDbContext<TwitterCloneContext>();
         services.AddSingleton<AuthenticationService>();
         services
@@ -47,6 +48,15 @@ public class Startup
         app.UseAuthorization();
         app.UseSwagger();
         app.UseSwaggerUI();
+        app.UseCors(
+            (
+                cors =>
+                    cors.AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .SetIsOriginAllowed(origin => true)
+                        .AllowCredentials()
+            )
+        );
 
         // Auto Migrations
         context.Database.EnsureCreated();
