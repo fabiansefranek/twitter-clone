@@ -2,7 +2,7 @@ import { Observable, throwError } from "rxjs";
 import { catchError, retry } from "rxjs/operators";
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { User } from "src/types";
+import { AccessToken, User } from "src/types";
 import { Router } from "@angular/router";
 
 @Injectable({
@@ -11,17 +11,6 @@ import { Router } from "@angular/router";
 export class AuthService {
 	private authUrl = "http://localhost:5000/auth"; //TODO: use env variable for port
 	constructor(private http: HttpClient, private router: Router) {}
-
-	parseTokenAndStore(token: string): any {
-		if (token != null) {
-			const parsedToken = JSON.parse(atob(token.split(".")[1]));
-			window.sessionStorage.setItem("accessToken", parsedToken);
-			window.sessionStorage.setItem("accessTokenExpiry", parsedToken.exp);
-			window.sessionStorage.setItem("username", parsedToken.unique_name);
-			return parsedToken;
-		}
-		return null;
-	}
 
 	login(user: User) {
 		const request = this.http
@@ -34,7 +23,7 @@ export class AuthService {
 				next: (data: any) => {
 					if (data.token != null) {
 						this.router.navigate(["/"]);
-						this.parseTokenAndStore(data.token);
+						this.storeToken(data.token);
 					}
 				},
 				error: (err) => {
@@ -54,15 +43,29 @@ export class AuthService {
 				next: (data: any) => {
 					if (data.token != null) {
 						this.router.navigate(["/"]);
-						const token = this.parseTokenAndStore(data.token);
-						console.log(token);
+						this.storeToken(data.token);
 					}
 				},
 				error: (err) => console.error(err),
 			});
 	}
 
+	parseToken(token: string): AccessToken | null {
+		if (token == null) throw "Access token is null";
+		const parsedToken = JSON.parse(atob(token.split(".")[1]));
+		return parsedToken;
+	}
+
+	storeToken(token: string) {
+		const parsedToken = this.parseToken(token);
+		if (parsedToken == null) throw "Invalid token";
+		window.sessionStorage.setItem("accessToken", token);
+		window.sessionStorage.setItem("accessTokenExpiry", parsedToken.exp.toString());
+		window.sessionStorage.setItem("username", parsedToken.unique_name);
+	}
+
 	isLoggedIn(): boolean {
+		//TODO: verify token
 		const accessToken = window.sessionStorage.getItem("accessToken");
 		const tokenExpiry = window.sessionStorage.getItem("accessTokenExpiry");
 		const now = Math.floor(Date.now() / 1000);
@@ -70,5 +73,12 @@ export class AuthService {
 			return true;
 		}
 		return false;
+	}
+
+	getUser(): User | undefined {
+		if (!this.isLoggedIn()) return undefined;
+		const token = this.parseToken(window.sessionStorage.getItem("accessToken") as string);
+		if (token == null) return undefined;
+		return { username: token.unique_name } as User;
 	}
 }
