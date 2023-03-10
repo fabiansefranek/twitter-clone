@@ -1,14 +1,14 @@
 import { Component } from "@angular/core";
+import { Router } from "@angular/router";
 import { AuthService } from "src/app/services/auth/auth.service";
 import { User } from "src/types";
-import { Router } from "@angular/router";
 
 @Component({
-	selector: "app-login",
-	templateUrl: "./login.component.html",
-	styleUrls: ["./login.component.css"],
+	selector: "app-signup",
+	templateUrl: "./signup.component.html",
+	styleUrls: ["./signup.component.css"],
 })
-export class LoginComponent {
+export class SignupComponent {
 	user: User = {} as User;
 	constructor(private authService: AuthService, private router: Router) {}
 
@@ -18,8 +18,8 @@ export class LoginComponent {
 		}
 	}
 
-	handleLoginButtonClick() {
+	handleSignupButtonClick() {
 		if (!this.user.username || !this.user.password) return;
-		this.authService.login(this.user);
+		this.authService.signup(this.user);
 	}
 }
