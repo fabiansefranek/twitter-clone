@@ -7,19 +7,15 @@ namespace twitter_clone.controllers;
 
 public class AuthenticationController
 {
-    public static async Task<dynamic> Login(User requestUser, TwitterCloneContext db)
+    public static async Task<dynamic> Login([FromBody] User requestUser, TwitterCloneContext db)
     {
         var user = await db.Users.FirstOrDefaultAsync(u => u.Username.Equals(requestUser.Username));
         if (user is null)
-        {
             return Results.NotFound();
-        }
 
         var hashedPassword = AuthenticationService.HashString(requestUser.Password);
         if (!hashedPassword.Equals(user.Password))
-        {
             return Results.Unauthorized();
-        }
 
         var token = AuthenticationService.GenerateToken(user);
 
@@ -28,7 +24,6 @@ public class AuthenticationController
 
     public static async Task<dynamic> Signup([FromBody] User user, TwitterCloneContext db)
     {
-								Console.WriteLine(user.Username);
         var userExists =
             await db.Users.FirstOrDefaultAsync(u => u.Username.Equals(user.Username)) != null;
         if (userExists)
@@ -46,5 +41,4 @@ public class AuthenticationController
 
         return Results.Ok(new { token = token });
     }
-
 }
