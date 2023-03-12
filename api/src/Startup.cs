@@ -24,7 +24,7 @@ public class Startup
                 .GetService<IHttpContextAccessor>()
                 ?.HttpContext?.User;
             if (principal == null)
-                return new User();
+                return new User { Id = -1 };
 
             var id = principal.FindFirstValue(ClaimTypes.NameIdentifier);
             var username = principal.FindFirstValue(ClaimTypes.Name);
