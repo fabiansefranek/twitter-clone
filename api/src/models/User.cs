@@ -12,5 +12,6 @@ namespace twitter_clone.Models
         public string Password { get; set; }
         public string Role { get; set; }
         public int CreatedAt { get; set; }
+        public List<Post> Posts { get; set; }
     }
 }

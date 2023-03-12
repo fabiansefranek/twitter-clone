@@ -27,5 +27,7 @@ public class Routes
 
         app.MapGet("/moderator", (ClaimsPrincipal user) => Results.Ok())
             .RequireAuthorization("moderator");
+        app.MapGet("/posts", (TwitterCloneContext db) => db.Posts.ToList());
+        app.MapPost("/posts", PostController.AddPost);
     }
 }
