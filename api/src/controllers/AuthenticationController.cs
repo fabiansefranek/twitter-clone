@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using twitter_clone.Models;
@@ -7,7 +8,7 @@ namespace twitter_clone.controllers;
 
 public class AuthenticationController
 {
-    public static async Task<dynamic> Login([FromBody] User requestUser, TwitterCloneContext db)
+    public static async Task<IResult> Login([FromBody] User requestUser, TwitterCloneContext db)
     {
         var user = await db.Users.FirstOrDefaultAsync(u => u.Username.Equals(requestUser.Username));
         if (user is null)
@@ -22,7 +23,7 @@ public class AuthenticationController
         return Results.Ok(new { token = token });
     }
 
-    public static async Task<dynamic> Signup([FromBody] User user, TwitterCloneContext db)
+    public static async Task<IResult> Signup([FromBody] User user, TwitterCloneContext db)
     {
         var userExists =
             await db.Users.FirstOrDefaultAsync(u => u.Username.Equals(user.Username)) != null;
@@ -40,5 +41,10 @@ public class AuthenticationController
         var token = AuthenticationService.GenerateToken(user);
 
         return Results.Ok(new { token = token });
+    }
+
+    public static IResult GetUserInfo(User user)
+    {
+        return Results.Ok(new {id=user.Id, username=user.Username, role=user.Role});
     }
 }

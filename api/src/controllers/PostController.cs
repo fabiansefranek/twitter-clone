@@ -4,7 +4,7 @@ namespace twitter_clone.controllers;
 
 public class PostController
 {
-    public static async Task<dynamic> AddPost(Post post, User user, TwitterCloneContext db)
+    public static async Task<IResult> AddPost(Post post, User user, TwitterCloneContext db)
     {
         if (user.Id == -1)
             return Results.NotFound("HTTPContext User not found");
