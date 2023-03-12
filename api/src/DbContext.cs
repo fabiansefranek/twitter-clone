@@ -11,10 +11,12 @@ namespace twitter_clone
             : base(options) { }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Post> Posts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<User>().HasIndex(u => u.Username).IsUnique();
+            builder.Entity<Post>().HasOne(p => p.User).WithMany(u => u.Posts);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
