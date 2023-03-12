@@ -24,7 +24,7 @@ public class AuthenticationService
         return builder.ToString();
     }
 
-    internal static string GenerateToken(User user)
+    public static string GenerateToken(User user)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET")!);
@@ -34,6 +34,7 @@ public class AuthenticationService
                 new Claim[]
                 {
                     new Claim(ClaimTypes.Name, user.Username.ToString()),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                     new Claim(ClaimTypes.Role, user.Role.ToString()),
                 }
             ),
