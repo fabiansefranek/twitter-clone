@@ -11,7 +11,7 @@ using twitter_clone;
 namespace twitter_clone.Migrations
 {
     [DbContext(typeof(TwitterCloneContext))]
-    [Migration("20230310115947_Posts")]
+    [Migration("20230312093258_Posts")]
     partial class Posts
     {
         /// <inheritdoc />
@@ -49,7 +49,7 @@ namespace twitter_clone.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Post");
+                    b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("twitter_clone.Models.User", b =>

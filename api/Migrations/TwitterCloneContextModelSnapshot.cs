@@ -46,7 +46,7 @@ namespace twitter_clone.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Post");
+                    b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("twitter_clone.Models.User", b =>
