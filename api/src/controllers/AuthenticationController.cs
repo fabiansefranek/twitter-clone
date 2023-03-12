@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using twitter_clone.Models;
 using twitter_clone.services;
@@ -25,8 +26,9 @@ public class AuthenticationController
         return Results.Ok(new { token = token });
     }
 
-    public static async Task<dynamic> Signup(User user, TwitterCloneContext db)
+    public static async Task<dynamic> Signup([FromBody] User user, TwitterCloneContext db)
     {
+								Console.WriteLine(user.Username);
         var userExists =
             await db.Users.FirstOrDefaultAsync(u => u.Username.Equals(user.Username)) != null;
         if (userExists)
@@ -35,7 +37,7 @@ public class AuthenticationController
         var passwordHash = AuthenticationService.HashString(user.Password);
         user.Password = passwordHash;
         user.Role = "user";
-        user.CreatedAt = Convert.ToInt32(DateTimeOffset.UtcNow.ToUnixTimeSeconds());
+        user.CreatedAt = Utils.GetTimestamp();
 
         db.Users.Add(user);
         await db.SaveChangesAsync();
@@ -44,4 +46,5 @@ public class AuthenticationController
 
         return Results.Ok(new { token = token });
     }
+
 }

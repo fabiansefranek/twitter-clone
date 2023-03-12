@@ -1,7 +1,9 @@
+using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using twitter_clone.Models;
 using twitter_clone.services;
 
 namespace twitter_clone;
@@ -15,6 +17,26 @@ public class Startup
         services.AddEndpointsApiExplorer();
         services.AddCors();
         services.AddDbContext<TwitterCloneContext>();
+        services.AddHttpContextAccessor();
+        services.AddTransient<User>(provider => // Provides User Injectable to be used in controllers
+        {
+            ClaimsPrincipal? principal = provider
+                .GetService<IHttpContextAccessor>()
+                ?.HttpContext?.User;
+            if (principal == null)
+                return new User();
+
+            var id = principal.FindFirstValue(ClaimTypes.NameIdentifier);
+            var username = principal.FindFirstValue(ClaimTypes.Name);
+            var role = principal.FindFirstValue(ClaimTypes.Role);
+
+            return new User
+            {
+                Id = Convert.ToInt32(id),
+                Username = username!,
+                Role = role!
+            };
+        });
         services.AddSingleton<AuthenticationService>();
         services
             .AddAuthentication(config =>
