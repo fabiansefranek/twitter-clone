@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using twitter_clone;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +8,7 @@ var db = new TwitterCloneContext();
 startup.Configure(app, builder.Environment, db);
 
 // Routes
-var routes = new Routes(db);
+var routes = new Routes();
 routes.Mount(app);
 
 string? port = Environment.GetEnvironmentVariable("API_PORT");
