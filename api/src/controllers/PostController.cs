@@ -4,16 +4,25 @@ namespace twitter_clone.controllers;
 
 public class PostController
 {
-	public static async Task<dynamic> AddPost(Post post, int userId, TwitterCloneContext db)
-	{
-		var user = await db.Users.FindAsync(userId);
-		if (user is null)
-		{
-			return Results.NotFound();
-		}
+    public static async Task<dynamic> AddPost(Post post, User user, TwitterCloneContext db)
+    {
+        if (user.Id == -1)
+            return Results.NotFound("HTTPContext User not found");
 
-		db.Posts.Add(post);
-		await db.SaveChangesAsync();
-		return Results.Ok();
-	}
+        var userExists = await db.Users.FindAsync(user.Id) != null;
+        if (!userExists)
+            return Results.NotFound("User not found in database");
+
+        db.Posts.Add(
+            new Post
+            {
+                UserId = user.Id,
+                CreatedAt = Utils.GetTimestamp(),
+                Text = post.Text
+            }
+        );
+        await db.SaveChangesAsync();
+
+        return Results.Ok();
+    }
 }
