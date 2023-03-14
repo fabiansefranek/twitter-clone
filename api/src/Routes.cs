@@ -11,6 +11,7 @@ public class Routes
 
         app.MapPost("/auth/login", AuthenticationController.Login);
         app.MapPost("/auth/signup", AuthenticationController.Signup);
+        app.MapPost("/auth/validate", AuthenticationController.ValidateToken);
         app.MapGet("/auth/me", AuthenticationController.GetUserInfo).RequireAuthorization("user");
 
         app.MapGet("/posts", (TwitterCloneContext db) => db.Posts.ToList());

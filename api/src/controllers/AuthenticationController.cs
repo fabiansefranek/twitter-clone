@@ -47,4 +47,17 @@ public class AuthenticationController
     {
         return Results.Ok(new {id=user.Id, username=user.Username, role=user.Role});
     }
+
+    public static IResult ValidateToken([FromBody] string token)
+    {
+	    bool tokenIsValid = AuthenticationService.IsTokenValid(token);
+	    if (tokenIsValid)
+	    {
+		    return Results.Ok(new { message = "Token is valid" });
+	    }
+	    else
+	    {
+		    return Results.Unauthorized();
+	    }
+    }
 }
