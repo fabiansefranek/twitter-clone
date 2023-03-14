@@ -50,6 +50,13 @@ export class AuthService {
 			});
 	}
 
+	logout() {
+		window.sessionStorage.removeItem("token");
+		window.sessionStorage.removeItem("tokenExpiry");
+		window.sessionStorage.removeItem("username");
+		this.router.navigate(["/"]);
+	}
+
 	parseToken(token: string): AccessToken | null {
 		if (token == null) throw "Access token is null";
 		const parsedToken = JSON.parse(atob(token.split(".")[1]));
@@ -59,25 +66,31 @@ export class AuthService {
 	storeToken(token: string) {
 		const parsedToken = this.parseToken(token);
 		if (parsedToken == null) throw "Invalid token";
-		window.sessionStorage.setItem("accessToken", token);
-		window.sessionStorage.setItem("accessTokenExpiry", parsedToken.exp.toString());
+		window.sessionStorage.setItem("token", token);
+		window.sessionStorage.setItem("tokenExpiry", parsedToken.exp.toString());
 		window.sessionStorage.setItem("username", parsedToken.unique_name);
 	}
 
 	isLoggedIn(): boolean {
-		//TODO: verify token
-		const accessToken = window.sessionStorage.getItem("accessToken");
-		const tokenExpiry = window.sessionStorage.getItem("accessTokenExpiry");
-		const now = Math.floor(Date.now() / 1000);
-		if (accessToken && tokenExpiry && parseInt(tokenExpiry) > now) {
-			return true;
-		}
-		return false;
+		const token = window.sessionStorage.getItem("token");
+		if (!token) return false;
+
+		this.http
+			.post(`${this.authUrl}/validate`, JSON.stringify(token), {
+				headers: new HttpHeaders({
+					"Content-Type": "application/json",
+				}),
+			})
+			.subscribe((response: any) => {
+				if (response.status != 200) return false;
+				else return true;
+			});
+		return true;
 	}
 
 	getUser(): User | undefined {
 		if (!this.isLoggedIn()) return undefined;
-		const token = this.parseToken(window.sessionStorage.getItem("accessToken") as string);
+		const token = this.parseToken(window.sessionStorage.getItem("token") as string);
 		if (token == null) return undefined;
 		return { username: token.unique_name } as User;
 	}
