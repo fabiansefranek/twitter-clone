@@ -69,7 +69,7 @@ public class AuthenticationService
 			    var user = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
 			    var identity = user.Identity;
 			    var role = user.FindFirst(ClaimTypes.Role);
-			    if (validatedToken == null) return false;
+			    if (validatedToken.ValidTo < DateTime.Now) return false;
 			    if (identity == null || identity.Name.IsNullOrEmpty()) return false;
 			    if (role == null || role.Value.IsNullOrEmpty()) return false;
 		    }
