@@ -1,1 +1,16 @@
-<router-outlet></router-outlet>
+<body class="flex flex-row justify-center w-full h-full gap-10">
+	<nav class="pt-3 flex flex-col gap-3 text-xl w-[10vw] text-white">
+		<a class="flex gap-4 px-5 py-3 rounded-full w-fit hover:bg-neutral-800 active:bg-neutral-700" routerLink=""
+			><img src="assets/home.svg" />Home</a
+		>
+		<a class="flex gap-4 px-5 py-3 rounded-full w-fit hover:bg-neutral-800 active:bg-neutral-700" routerLink="profile">
+			<img src="assets/user.svg" />Profil</a
+		>
+		<a class="w-full px-5 py-3 text-center rounded-full bg-sky-500 hover:bg-sky-600 active:bg-sky-700" routerLink="tweet"
+			>Tweet</a
+		>
+	</nav>
+	<main class="w-[35vw] border-neutral-800 border-x-2">
+		<router-outlet></router-outlet>
+	</main>
+</body>
