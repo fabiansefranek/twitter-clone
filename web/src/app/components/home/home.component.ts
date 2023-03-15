@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { AuthService } from "src/app/services/auth/auth.service";
+import { PostComponent } from "../post/post.component";
 import { User } from "src/types";
 
 @Component({

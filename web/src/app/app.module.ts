@@ -8,10 +8,19 @@ import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import { SignupComponent } from "./components/signup/signup.component";
 import { HomeComponent } from "./components/home/home.component";
-import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileComponent } from "./components/profile/profile.component";
+import { PostComponent } from "./components/post/post.component";
 
 @NgModule({
-	declarations: [AppComponent, LoginComponent, LoginComponent, SignupComponent, HomeComponent, ProfileComponent],
+	declarations: [
+		AppComponent,
+		LoginComponent,
+		LoginComponent,
+		SignupComponent,
+		HomeComponent,
+		ProfileComponent,
+		PostComponent,
+	],
 	imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
 	providers: [],
 	bootstrap: [AppComponent],

@@ -1,0 +1,23 @@
+.comment:hover {
+	filter: invert(60%) sepia(61%) saturate(4704%) hue-rotate(166deg) brightness(100%) contrast(89%);
+}
+
+.repost:hover {
+	filter: invert(78%) sepia(43%) saturate(7400%) hue-rotate(99deg) brightness(105%) contrast(73%);
+}
+
+.like:hover {
+	filter: invert(23%) sepia(77%) saturate(3638%) hue-rotate(319deg) brightness(91%) contrast(88%);
+}
+
+.views:hover {
+	filter: invert(60%) sepia(61%) saturate(4704%) hue-rotate(166deg) brightness(100%) contrast(89%);
+}
+
+.share:hover {
+	filter: invert(60%) sepia(61%) saturate(4704%) hue-rotate(166deg) brightness(100%) contrast(89%);
+}
+
+.more:hover {
+	filter: invert(60%) sepia(61%) saturate(4704%) hue-rotate(166deg) brightness(100%) contrast(89%);
+}
