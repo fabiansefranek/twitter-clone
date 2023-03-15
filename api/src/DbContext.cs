@@ -16,7 +16,7 @@ namespace twitter_clone
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<User>().HasIndex(u => u.Username).IsUnique();
-            builder.Entity<Post>().HasOne(p => p.User).WithMany(u => u.Posts);
+            builder.Entity<User>().HasMany(u => u.Posts).WithOne(p => p.User).IsRequired();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

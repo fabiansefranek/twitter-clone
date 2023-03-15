@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -61,6 +62,10 @@ public class Startup
         {
             options.AddPolicy("user", policy => policy.RequireAuthenticatedUser());
             options.AddPolicy("moderator", policy => policy.RequireRole("moderator"));
+        });
+        services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =>
+        {
+	        options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
         });
     }
 
