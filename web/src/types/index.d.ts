@@ -3,6 +3,13 @@ export type User = {
 	password: string;
 };
 
+export type Post = {
+	id: number;
+	text: string;
+	createdAt: number;
+	updatedAt: number;
+};
+
 export type AccessToken = {
 	unique_name: string;
 	role: string;
