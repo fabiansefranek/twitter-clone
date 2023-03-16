@@ -30,7 +30,7 @@ public class PostController
     public static IResult GetPosts(TwitterCloneContext db)
     {
 	    var posts = db.Posts.OrderByDescending(p => p.CreatedAt).Include(p => p.User);
-	    var postsDto = posts.Select(p => new PostDTO() {Id = p.Id, User = new UserDTO() {Id=p.User.Id,Username = p.User.Username,Role = p.User.Role, CreatedAt = p.User.CreatedAt}, Text = p.Text, CreatedAt = p.CreatedAt, UpdatedAt = p.UpdatedAt});
+	    var postsDto = posts.Select(p => new PostDTO() {Id = p.Id, User = new UserDTO() {Id=p.User.Id,Username = p.User.Username,Fullname = p.User.Fullname, Role = p.User.Role, CreatedAt = p.User.CreatedAt}, Text = p.Text, CreatedAt = p.CreatedAt, UpdatedAt = p.UpdatedAt});
 	    return Utils.Response("", postsDto, HttpStatusCode.OK);
     }
 }
