@@ -1,4 +1,5 @@
 export type User = {
+	fullname: string;
 	username: string;
 	password: string;
 };
@@ -8,6 +9,7 @@ export type Post = {
 	text: string;
 	createdAt: number;
 	updatedAt: number;
+	user: User;
 };
 
 export type AccessToken = {
