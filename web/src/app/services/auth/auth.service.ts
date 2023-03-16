@@ -59,6 +59,11 @@ export class AuthService {
 
 	parseToken(token: string): AccessToken | null {
 		if (token == null) throw "Access token is null";
+		try {
+			atob(token.split(".")[1]);
+		} catch (e) {
+			return null;
+		}
 		const parsedToken = JSON.parse(atob(token.split(".")[1]));
 		return parsedToken;
 	}
