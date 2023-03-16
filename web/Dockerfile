@@ -5,4 +5,4 @@ COPY package*.json .
 RUN npm install
 COPY . ./
 
-CMD ["npm", "start", "--", "--poll", "2000", "--disable-host-check", "--host", "0.0.0.0"]
+CMD ["npm","run", "start", "--", "--poll", "2000", "--disable-host-check", "--host", "0.0.0.0"]
