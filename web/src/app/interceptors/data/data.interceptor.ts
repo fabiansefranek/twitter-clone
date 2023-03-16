@@ -17,7 +17,7 @@ export class DataInterceptor implements HttpInterceptor {
 		return next.handle(request).pipe(
 			filter((event: any) => event instanceof HttpResponse),
 			map((event: HttpResponse<any>) => {
-				return event.clone({ body: event.body.data });
+				return event.body.data ? event.clone({ body: event.body.data }) : event;
 			})
 		);
 	}
