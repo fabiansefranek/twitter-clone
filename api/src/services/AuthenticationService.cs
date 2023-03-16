@@ -52,32 +52,43 @@ public class AuthenticationService
 
     public static bool IsTokenValid(string token)
     {
-	    var key = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET")!);
-	    JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-	    TokenValidationParameters validationParameters = new TokenValidationParameters
-	    {
-		    ValidateIssuerSigningKey = true,
-		    IssuerSigningKey = new SymmetricSecurityKey(key),
-		    ValidateIssuer = false,
-		    ValidateAudience = false,
-		    ClockSkew = TimeSpan.Zero
-	    };
-	    try
-	    {
-		    if (tokenHandler.CanReadToken(token))
-		    {
-			    var user = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
-			    var identity = user.Identity;
-			    var role = user.FindFirst(ClaimTypes.Role);
-			    if (validatedToken.ValidTo < DateTime.Now) return false;
-			    if (identity == null || identity.Name.IsNullOrEmpty()) return false;
-			    if (role == null || role.Value.IsNullOrEmpty()) return false;
-		    }
-	    }
-	    catch
-	    {
-		    return false;
-	    }
-	    return true;
+        var key = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET")!);
+        JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+        TokenValidationParameters validationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ClockSkew = TimeSpan.Zero
+        };
+        try
+        {
+            if (tokenHandler.CanReadToken(token))
+            {
+                var user = tokenHandler.ValidateToken(
+                    token,
+                    validationParameters,
+                    out SecurityToken validatedToken
+                );
+                var identity = user.Identity;
+                var role = user.FindFirst(ClaimTypes.Role);
+                if (validatedToken.ValidTo < DateTime.Now)
+                    return false;
+                if (identity == null || identity.Name.IsNullOrEmpty())
+                    return false;
+                if (role == null || role.Value.IsNullOrEmpty())
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch
+        {
+            return false;
+        }
+        return true;
     }
 }
