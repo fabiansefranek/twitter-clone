@@ -19,7 +19,7 @@ export class SignupComponent {
 	}
 
 	handleSignupButtonClick() {
-		if (!this.user.username || !this.user.password) return;
+		if (!this.user.username || !this.user.password || !this.user.fullname) return;
 		this.authService.signup(this.user);
 	}
 }
