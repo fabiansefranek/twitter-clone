@@ -8,22 +8,17 @@
 	<div class="flex flex-col flex-1">
 		<div class="flex flex-row justify-between">
 			<div class="flex flex-row gap-2">
-				<a class="font-semibold text-white hover:underline" href="/">Full Name</a>
+				<a class="font-semibold text-white hover:underline" href="/@{{ this.username }}">{{ this.fullname }}</a>
 				<span class="flex flex-row gap-2 font-medium text-neutral-500"
-					><a href="/">@username</a>
+					><a href="/@{{ this.username }}">@{{ this.username }}</a>
 					<p>·</p>
-					<p>10h</p></span
+					<p>{{ timeSince(this.createdAt) }}</p></span
 				>
 			</div>
 			<img class="cursor-pointer more" src="assets/more-horizontal.svg" />
 		</div>
 		<div class="text-white">
-			Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
-			magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
-			gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
-			elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos
-			et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor
-			sit amet.
+			{{ this.text }}
 		</div>
 		<div class="flex flex-row justify-between w-full pr-8 mt-3">
 			<p title="Reply" class="flex flex-row gap-1 cursor-pointer comment text-neutral-500">
