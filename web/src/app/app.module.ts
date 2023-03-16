@@ -12,6 +12,7 @@ import { ProfileComponent } from "./components/profile/profile.component";
 import { PostComponent } from "./components/post/post.component";
 import { ErrorInterceptor } from "./interceptors/error/error.interceptor";
 import { NavigationComponent } from "./components/navigation/navigation.component";
+import { DataInterceptor } from "./interceptors/data/data.interceptor";
 
 @NgModule({
 	declarations: [
@@ -25,7 +26,10 @@ import { NavigationComponent } from "./components/navigation/navigation.componen
 		NavigationComponent,
 	],
 	imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
-	providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
+	providers: [
+		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+		{ provide: HTTP_INTERCEPTORS, useClass: DataInterceptor, multi: true },
+	],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}
