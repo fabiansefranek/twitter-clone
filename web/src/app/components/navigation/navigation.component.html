@@ -11,7 +11,7 @@
 		<img src="{{ icon('/profile') }}" />Profile</a
 	>
 	<a
-		*ngIf="this.authService.isLoggedIn()"
+		*ngIf="this.authService.hasToken()"
 		class="w-full px-5 py-3 text-center rounded-full bg-sky-500 hover:bg-sky-600 active:bg-sky-700"
 		routerLink="tweet"
 		>Tweet</a
