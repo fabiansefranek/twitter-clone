@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
+import { AuthService } from "src/app/services/auth/auth.service";
 
 @Component({
 	selector: "app-navigation",
@@ -7,7 +8,8 @@ import { Router } from "@angular/router";
 	styleUrls: ["./navigation.component.css"],
 })
 export class NavigationComponent {
-	constructor(private router: Router) {}
+	isLoggedIn: boolean = false;
+	constructor(private router: Router, public authService: AuthService) {}
 
 	font(path: string): string {
 		return this.router.url == path ? "font-semibold" : "font-normal";
@@ -18,6 +20,4 @@ export class NavigationComponent {
 		if (name === "") name = "home";
 		return this.router.url == path ? `assets/${name}-solid.svg` : `assets/${name}.svg`;
 	}
-
-	ngOnUpdate() {}
 }
