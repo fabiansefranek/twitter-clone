@@ -15,16 +15,21 @@ export class HomeComponent {
 	posts: Post[] = [];
 	constructor(private authService: AuthService, private postService: PostService) {}
 
+	updatePosts() {
+		this.postService.getPosts().subscribe((posts) => {
+			this.posts = posts;
+		});
+	}
+
 	ngOnInit() {
 		const isAuthenticated = this.authService.isAuthenticated().then((isAuthenticated) => {
 			this.isAuthenticated = isAuthenticated;
 			if (isAuthenticated) {
-				const user = this.authService.getUser();
-				if (user) this.user = user;
+				const user = this.authService.getUser().then((user) => {
+					if (user) this.user = user;
+				});
 			}
 		});
-		this.postService.getPosts().subscribe((posts) => {
-			this.posts = posts;
-		});
+		this.updatePosts();
 	}
 }

@@ -12,8 +12,9 @@ export class ProfileComponent {
 	constructor(private authService: AuthService) {}
 
 	ngOnInit() {
-		const user = this.authService.getUser();
-		if (user) this.user = user;
+		const user = this.authService.getUser().then((user) => {
+			if (user) this.user = user;
+		});
 	}
 
 	logout() {
