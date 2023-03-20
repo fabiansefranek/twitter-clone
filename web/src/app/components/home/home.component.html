@@ -1,24 +1,4 @@
-<div class="flex flex-row gap-3 p-4 text-white" *ngIf="this.isAuthenticated">
-	<div class="h-full w-fit">
-		<img
-			class="w-12 h-12 rounded-full cursor-pointer hover:opacity-95"
-			src="https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png?w=640"
-		/>
-	</div>
-	<div class="flex flex-col flex-1 gap-2 text-white">
-		<textarea
-			class="w-full text-xl bg-transparent outline-none resize-none"
-			spellcheck="false"
-			placeholder="What's happening?"
-			oninput="this.style.height = 'auto';this.style.height = this.scrollHeight + 'px';"
-		></textarea>
-		<div class="flex justify-end w-full">
-			<button class="px-4 py-1 font-bold text-white rounded-full bg-sky-500 hover:bg-sky-600 active:bg-sky-700">
-				Tweet
-			</button>
-		</div>
-	</div>
-</div>
+<app-postform class="w-full" *ngIf="this.isAuthenticated" (postCreated)="this.updatePosts()"></app-postform>
 <div *ngFor="let post of posts">
 	<app-post
 		[text]="post.text"
