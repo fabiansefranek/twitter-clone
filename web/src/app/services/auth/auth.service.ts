@@ -1,5 +1,3 @@
-import { Observable, throwError } from "rxjs";
-import { catchError, retry } from "rxjs/operators";
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { AccessToken, User } from "src/types";
@@ -76,25 +74,41 @@ export class AuthService {
 		window.sessionStorage.setItem("username", parsedToken.unique_name);
 	}
 
-	isLoggedIn(): boolean {
-		const token = window.sessionStorage.getItem("token");
-		if (!token) return false;
+	hasToken(): boolean {
+		return window.sessionStorage.getItem("token") != null;
+	}
 
-		this.http
-			.post(`${this.authUrl}/validate`, JSON.stringify(token), {
-				headers: new HttpHeaders({
-					"Content-Type": "application/json",
-				}),
-			})
-			.subscribe((response: any) => {
-				if (response.status != 200) return false;
-				else return true;
-			});
-		return true;
+	isAuthenticated(): Promise<boolean> {
+		return new Promise((resolve, reject) => {
+			const token = window.sessionStorage.getItem("token");
+			if (!token) return resolve(false);
+
+			this.http
+				.post(`${this.authUrl}/validate`, JSON.stringify(token), {
+					headers: new HttpHeaders({
+						"Content-Type": "application/json",
+					}),
+					observe: "response",
+				})
+				.subscribe({
+					next: (response: any) => {
+						if (response.status === 200) {
+							return resolve(true);
+						} else {
+							return resolve(false);
+						}
+					},
+					error: (err) => {
+						console.error(err);
+						return resolve(false);
+					},
+				});
+		});
 	}
 
 	getUser(): User | undefined {
-		if (!this.isLoggedIn()) return undefined;
+		const isAuthenticated = this.isAuthenticated().then((isAuthenticated) => isAuthenticated);
+		if (!isAuthenticated) return undefined;
 		const token = this.parseToken(window.sessionStorage.getItem("token") as string);
 		if (token == null) return undefined;
 		return { username: token.unique_name } as User;

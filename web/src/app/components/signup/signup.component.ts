@@ -13,9 +13,11 @@ export class SignupComponent {
 	constructor(private authService: AuthService, private router: Router) {}
 
 	ngOnInit() {
-		if (this.authService.isLoggedIn()) {
-			this.router.navigate(["/"]);
-		}
+		this.authService.isAuthenticated().then((isAuthenticated) => {
+			if (isAuthenticated) {
+				this.router.navigate(["/"]);
+			}
+		});
 	}
 
 	handleSignupButtonClick() {

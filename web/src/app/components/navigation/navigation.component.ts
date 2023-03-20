@@ -8,7 +8,7 @@ import { AuthService } from "src/app/services/auth/auth.service";
 	styleUrls: ["./navigation.component.css"],
 })
 export class NavigationComponent {
-	isLoggedIn: boolean = false;
+	isAuthenticated: boolean = false;
 	constructor(private router: Router, public authService: AuthService) {}
 
 	font(path: string): string {

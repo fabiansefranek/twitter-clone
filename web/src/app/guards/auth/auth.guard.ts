@@ -12,10 +12,15 @@ export class AuthGuard {
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot
 	): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-		if (this.authService.isLoggedIn()) {
-			return true;
-		} else {
-			return this.router.navigate(["/login"]);
-		}
+		return new Promise((resolve, reject) => {
+			this.authService.isAuthenticated().then((isAuthenticated) => {
+				if (!isAuthenticated) {
+					this.router.navigate(["/login"]);
+					resolve(false);
+				} else {
+					resolve(true);
+				}
+			});
+		});
 	}
 }
