@@ -78,6 +78,10 @@ export class AuthService {
 		return window.sessionStorage.getItem("token") != null;
 	}
 
+	getToken(): string | null {
+		return window.sessionStorage.getItem("token");
+	}
+
 	isAuthenticated(): Promise<boolean> {
 		return new Promise((resolve, reject) => {
 			const token = window.sessionStorage.getItem("token");
@@ -106,11 +110,14 @@ export class AuthService {
 		});
 	}
 
-	getUser(): User | undefined {
-		const isAuthenticated = this.isAuthenticated().then((isAuthenticated) => isAuthenticated);
-		if (!isAuthenticated) return undefined;
-		const token = this.parseToken(window.sessionStorage.getItem("token") as string);
-		if (token == null) return undefined;
-		return { username: token.unique_name } as User;
+	getUser(): Promise<User | undefined> {
+		return new Promise((resolve, reject) => {
+			this.isAuthenticated().then((isAuthenticated) => {
+				if (!isAuthenticated) return resolve(undefined);
+				const token = this.parseToken(window.sessionStorage.getItem("token") as string);
+				if (token == null) return resolve(undefined);
+				return resolve({ id: token.nameid, username: token.unique_name } as User);
+			});
+		});
 	}
 }
