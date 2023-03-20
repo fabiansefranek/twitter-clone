@@ -13,6 +13,8 @@ import { PostComponent } from "./components/post/post.component";
 import { ErrorInterceptor } from "./interceptors/error/error.interceptor";
 import { NavigationComponent } from "./components/navigation/navigation.component";
 import { DataInterceptor } from "./interceptors/data/data.interceptor";
+import { PostformComponent } from "./components/postform/postform.component";
+import { AuthInterceptor } from "./interceptors/auth/auth.interceptor";
 
 @NgModule({
 	declarations: [
@@ -24,11 +26,13 @@ import { DataInterceptor } from "./interceptors/data/data.interceptor";
 		ProfileComponent,
 		PostComponent,
 		NavigationComponent,
+		PostformComponent,
 	],
 	imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
 	providers: [
 		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: DataInterceptor, multi: true },
+		{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
 	],
 	bootstrap: [AppComponent],
 })
