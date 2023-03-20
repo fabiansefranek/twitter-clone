@@ -1,4 +1,5 @@
 export type User = {
+	id: string;
 	fullname: string;
 	username: string;
 	password: string;
@@ -13,6 +14,7 @@ export type Post = {
 };
 
 export type AccessToken = {
+	nameid: string;
 	unique_name: string;
 	role: string;
 	exp: number;
