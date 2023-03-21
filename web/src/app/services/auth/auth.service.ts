@@ -116,7 +116,7 @@ export class AuthService {
 				if (!isAuthenticated) return resolve(undefined);
 				const token = this.parseToken(window.sessionStorage.getItem("token") as string);
 				if (token == null) return resolve(undefined);
-				return resolve({ id: token.nameid, username: token.unique_name } as User);
+				return resolve({ id: token.nameid, username: token.unique_name, fullname: token.family_name } as User);
 			});
 		});
 	}

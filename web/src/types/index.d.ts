@@ -20,4 +20,5 @@ export type AccessToken = {
 	exp: number;
 	nbf: number;
 	iat: number;
+	family_name: string; // claim type for full name does not exist, so family_name is used for full name
 };

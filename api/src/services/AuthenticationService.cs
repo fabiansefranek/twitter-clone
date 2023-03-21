@@ -33,9 +33,10 @@ public class AuthenticationService
             Subject = new ClaimsIdentity(
                 new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.Username.ToString()),
+                    new Claim(ClaimTypes.Name, user.Username),
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Role, user.Role.ToString()),
+                    new Claim(ClaimTypes.Role, user.Role),
+                    new Claim(ClaimTypes.Surname, user.Fullname)
                 }
             ),
             Expires = DateTime.UtcNow.AddMinutes(30),
