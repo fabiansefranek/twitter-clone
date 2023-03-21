@@ -8,9 +8,9 @@
 	<div class="flex flex-col flex-1">
 		<div class="flex flex-row justify-between">
 			<div class="flex flex-row gap-2">
-				<a class="font-semibold text-white hover:underline" href="/@{{ this.username }}">{{ this.fullname }}</a>
+				<a class="font-semibold text-white hover:underline" href="/user/{{ this.username }}">{{ this.fullname }}</a>
 				<span class="flex flex-row gap-2 font-medium text-neutral-500"
-					><a href="/@{{ this.username }}">@{{ this.username }}</a>
+					><a href="/user/{{ this.username }}">@{{ this.username }}</a>
 					<p>·</p>
 					<p>{{ timeSince(this.createdAt) }}</p></span
 				>
