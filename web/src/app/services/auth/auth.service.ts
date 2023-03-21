@@ -2,12 +2,13 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { AccessToken, User } from "src/types";
 import { Router } from "@angular/router";
+import { environment } from "src/environments/environment";
 
 @Injectable({
 	providedIn: "root",
 })
 export class AuthService {
-	private authUrl = "http://localhost:5000/auth"; //TODO: use env variable for port
+	private authUrl = `${environment.BASE_URL}/auth`; //TODO: use env variable for port
 	constructor(private http: HttpClient, private router: Router) {}
 
 	login(user: User) {
