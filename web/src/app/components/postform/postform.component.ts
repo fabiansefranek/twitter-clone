@@ -16,7 +16,13 @@ export class PostformComponent {
 	async handleSubmit() {
 		const user = await this.authService.getUser();
 		if (!user) return;
-		const post = { text: this.text, user: { id: user.id } } as Post;
+		if (this.text.length === 0) return;
+		const unix_timestamp = Math.floor(Date.now() / 1000);
+		const post = {
+			text: this.text,
+			createdAt: unix_timestamp,
+			user: { id: user.id, username: user.username, fullname: user.fullname },
+		} as Post;
 		this.postService.createPost(post).subscribe((post) => {
 			this.text = "";
 		});

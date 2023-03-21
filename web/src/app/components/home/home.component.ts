@@ -15,9 +15,13 @@ export class HomeComponent {
 	posts: Post[] = [];
 	constructor(private authService: AuthService, private postService: PostService) {}
 
-	updatePosts() {
+	updatePosts(newPost?: Post) {
 		this.postService.getPosts().subscribe((posts) => {
-			this.posts = posts;
+			if (newPost) {
+				this.posts = [newPost, ...posts];
+			} else {
+				this.posts = posts;
+			}
 		});
 	}
 

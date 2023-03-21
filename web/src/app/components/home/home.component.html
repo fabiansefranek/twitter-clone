@@ -1,4 +1,4 @@
-<app-postform class="w-full" *ngIf="this.isAuthenticated" (postCreated)="this.updatePosts()"></app-postform>
+<app-postform class="w-full" *ngIf="this.isAuthenticated" (postCreated)="this.updatePosts($event)"></app-postform>
 <div *ngFor="let post of posts">
 	<app-post
 		[text]="post.text"
