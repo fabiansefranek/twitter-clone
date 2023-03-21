@@ -1,6 +1,10 @@
 <div class="flex flex-row justify-center w-full h-full gap-10">
-	<app-navigation></app-navigation>
-	<main class="w-[35vw] border-neutral-800 border-x-2 h-full">
+	<div class="flex justify-end flex-1">
+		<app-navigation></app-navigation>
+	</div>
+
+	<main class="w-[35vw] border-neutral-800 border-x-2 h-full overflow-y-scroll self-center">
 		<router-outlet></router-outlet>
 	</main>
+	<div class="flex-1"></div>
 </div>
