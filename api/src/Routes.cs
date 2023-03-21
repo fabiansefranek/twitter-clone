@@ -7,8 +7,6 @@ public class Routes
 {
     public void Mount(WebApplication app)
     {
-        app.MapGet("/users", (TwitterCloneContext db) => db.Users.ToList());
-
         app.MapPost("/auth/login", AuthenticationController.Login);
         app.MapPost("/auth/signup", AuthenticationController.Signup);
         app.MapPost("/auth/validate", AuthenticationController.ValidateToken);
@@ -16,5 +14,8 @@ public class Routes
 
         app.MapGet("/posts", PostController.GetPosts);
         app.MapPost("/posts", PostController.AddPost).RequireAuthorization("user");
+
+        app.MapGet("/users", (TwitterCloneContext db) => db.Users.ToList());
+        app.MapGet("/users/{username}", UserController.GetUser);
     }
 }
