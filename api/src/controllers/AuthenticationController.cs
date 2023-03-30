@@ -12,14 +12,23 @@ public class AuthenticationController
 {
     public static async Task<IResult> Login([FromBody] User requestUser, TwitterCloneContext db)
     {
-	    if (requestUser.Username.IsNullOrEmpty() || requestUser.Password.IsNullOrEmpty()) return Utils.Response("Username and/or password were not provided.", "", HttpStatusCode.Conflict);
+        if (requestUser.Username.IsNullOrEmpty() || requestUser.Password.IsNullOrEmpty())
+            return Utils.Response(
+                "Username and/or password were not provided.",
+                "",
+                HttpStatusCode.Conflict
+            );
         var user = await db.Users.FirstOrDefaultAsync(u => u.Username.Equals(requestUser.Username));
         if (user is null)
-	        return Utils.Response("User with this username not found in database.", "", HttpStatusCode.NotFound);
+            return Utils.Response(
+                "User with this username not found in database.",
+                "",
+                HttpStatusCode.NotFound
+            );
 
         var hashedPassword = AuthenticationService.HashString(requestUser.Password);
         if (!hashedPassword.Equals(user.Password))
-	        return Utils.Response("Password is incorrect.", "", HttpStatusCode.Unauthorized);
+            return Utils.Response("Password is incorrect.", "", HttpStatusCode.Unauthorized);
 
         var token = AuthenticationService.GenerateToken(user);
 
@@ -31,7 +40,22 @@ public class AuthenticationController
         var userExists =
             await db.Users.FirstOrDefaultAsync(u => u.Username.Equals(user.Username)) != null;
         if (userExists)
-	        return Utils.Response("User with that username already exists.", "", HttpStatusCode.Conflict);
+            return Utils.Response(
+                "User with that username already exists.",
+                "",
+                HttpStatusCode.Conflict
+            );
+
+        if (
+            user.Password.IsNullOrEmpty()
+            || user.Username.IsNullOrEmpty()
+            || user.Fullname.IsNullOrEmpty()
+        )
+            return Utils.Response(
+                "Not all user details were provided. (username, password, fullname)",
+                "",
+                HttpStatusCode.Conflict
+            );
 
         var passwordHash = AuthenticationService.HashString(user.Password);
         user.Password = passwordHash;
@@ -42,18 +66,29 @@ public class AuthenticationController
         await db.SaveChangesAsync();
 
         var token = AuthenticationService.GenerateToken(user);
-        return Utils.Response("", new {token=token}, HttpStatusCode.OK);
+        return Utils.Response("", new { token = token }, HttpStatusCode.OK);
     }
 
     public static IResult GetUserInfo(User user)
     {
-	    return Utils.Response("", new { id = user.Id, username = user.Username, role = user.Role }, HttpStatusCode.OK);
+        return Utils.Response(
+            "",
+            new
+            {
+                id = user.Id,
+                username = user.Username,
+                role = user.Role
+            },
+            HttpStatusCode.OK
+        );
     }
 
     public static IResult ValidateToken([FromBody] string token)
     {
-	    bool tokenIsValid = AuthenticationService.IsTokenValid(token);
-	    if (tokenIsValid) return Utils.Response("", "", HttpStatusCode.OK);
-	    else return Utils.Response("Token is invalid.", "", HttpStatusCode.Unauthorized);
+        bool tokenIsValid = AuthenticationService.IsTokenValid(token);
+        if (tokenIsValid)
+            return Utils.Response("", "", HttpStatusCode.OK);
+        else
+            return Utils.Response("Token is invalid.", "", HttpStatusCode.Unauthorized);
     }
 }

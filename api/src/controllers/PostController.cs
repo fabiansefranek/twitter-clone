@@ -1,4 +1,5 @@
 using System.Net;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using twitter_clone.Models;
 
@@ -30,7 +31,59 @@ public class PostController
     public static IResult GetPosts(TwitterCloneContext db)
     {
 	    var posts = db.Posts.OrderByDescending(p => p.CreatedAt).Include(p => p.User);
-	    var postsDto = posts.Select(p => new PostDTO() {Id = p.Id, User = new UserDTO() {Id=p.User.Id,Username = p.User.Username,Fullname = p.User.Fullname, Role = p.User.Role, CreatedAt = p.User.CreatedAt}, Text = p.Text, CreatedAt = p.CreatedAt, UpdatedAt = p.UpdatedAt});
+	    var postsDto = posts.Select(post => new PostDTO(post));
 	    return Utils.Response("", postsDto, HttpStatusCode.OK);
+    }
+
+    public static async Task<IResult> GetPost(int id, TwitterCloneContext db)
+    {
+	    var post = await db.Posts.Include(post => post.User).FirstOrDefaultAsync(post => post.Id == id);
+	    if (post == null)
+	    {
+		    return Utils.Response("Post with this id was not found", "", HttpStatusCode.NotFound);
+	    }
+
+	    return Utils.Response("",
+		    new PostDTO(post),
+		    HttpStatusCode.OK
+	    );
+    }
+
+    public static async Task<IResult> DeletePost([FromBody] Post requestedPost, User user, TwitterCloneContext db)
+    {
+	    var post = await db.Posts.FirstOrDefaultAsync(p => p.Id == requestedPost.Id);
+	    if (post == null)
+	    {
+		    return Utils.Response("Post not found", "", HttpStatusCode.NotFound);
+	    }
+
+	    if (post.UserId != user.Id)
+	    {
+		    return Utils.Response("Post not from authenticated user", "", HttpStatusCode.Forbidden);
+	    }
+
+	    db.Posts.Remove(post);
+	    await db.SaveChangesAsync();
+
+	    return Utils.Response("", "", HttpStatusCode.OK);
+    }
+
+    public static async Task<IResult> UpdatePost([FromBody] Post requestedPost, User user, TwitterCloneContext db)
+    {
+	    var post = await db.Posts.FirstOrDefaultAsync(p => p.Id == requestedPost.Id);
+	    if (post == null)
+	    {
+		    return Utils.Response("Post not found", "", HttpStatusCode.NotFound);
+	    }
+
+	    if (post.UserId != user.Id)
+	    {
+		    return Utils.Response("Post not from authenticated user", "", HttpStatusCode.Forbidden);
+	    }
+
+	    db.Posts.Update(post);
+	    await db.SaveChangesAsync();
+
+	    return Utils.Response("", "", HttpStatusCode.OK);
     }
 }

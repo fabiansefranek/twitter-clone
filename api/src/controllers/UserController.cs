@@ -16,11 +16,8 @@ public class UserController
 		}
 
 		return Utils.Response("",
-			new UserDTO()
-			{
-				Id = user.Id, Username = user.Username, Fullname = user.Fullname, Role = user.Role, CreatedAt = user.CreatedAt
-			},
-			HttpStatusCode.OK
+			new UserDTO(user),
+		HttpStatusCode.OK
 		);
 
 
