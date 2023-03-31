@@ -20,13 +20,19 @@ namespace twitter_clone
         {
             builder.Entity<User>().HasIndex(u => u.Username).IsUnique();
             builder.Entity<User>().HasMany(u => u.Posts).WithOne(p => p.User).IsRequired();
+            builder.Entity<User>().HasMany(u => u.Likes).WithOne(p => p.User).IsRequired(false);
+            builder.Entity<Post>().HasMany(r => r.Likes).WithOne(p => p.Post).IsRequired(false);
+            builder
+                .Entity<Follow>()
+                .HasOne(f => f.Follower)
+                .WithMany(u => u.Follows)
+                .IsRequired(false);
             builder.Entity<User>().Property(u => u.Fullname).IsRequired(false);
             builder.Entity<UserDTO>().Property(u => u.Fullname).IsRequired(false);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var port = Environment.GetEnvironmentVariable("DB_PORT");
             var host = Environment.GetEnvironmentVariable("DB_HOST");
             var database = Environment.GetEnvironmentVariable("DB_DATABASE");
             var username = Environment.GetEnvironmentVariable("DB_USERNAME");
