@@ -8,8 +8,7 @@ var db = new TwitterCloneContext();
 startup.Configure(app, builder.Environment, db);
 
 // Routes
-var routes = new Routes();
-routes.Mount(app);
+Routes.Mount(app);
 
-string? port = Environment.GetEnvironmentVariable("API_PORT");
+var port = Environment.GetEnvironmentVariable("API_PORT");
 app.Run($"http://+:{port}");
