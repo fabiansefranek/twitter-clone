@@ -65,7 +65,7 @@ public class Startup
         });
         services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =>
         {
-	        options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
         });
     }
 
