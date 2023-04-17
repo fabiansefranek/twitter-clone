@@ -20,9 +20,9 @@ export class AuthService {
 			})
 			.subscribe({
 				next: (data: any) => {
-					if (data.token != null) {
+					if (data != null) {
 						this.router.navigate(["/"]);
-						this.storeToken(data.token);
+						this.storeToken(data);
 					}
 				},
 				error: (err) => {
@@ -40,9 +40,9 @@ export class AuthService {
 			})
 			.subscribe({
 				next: (data: any) => {
-					if (data.token != null) {
+					if (data != null) {
 						this.router.navigate(["/"]);
-						this.storeToken(data.token);
+						this.storeToken(data);
 					}
 				},
 				error: (err) => console.error(err),
