@@ -6,6 +6,7 @@ import { SignupComponent } from "./components/signup/signup.component";
 import { HomeComponent } from "./components/home/home.component";
 import { AuthGuard } from "./guards/auth/auth.guard";
 import { ProfileComponent } from "./components/profile/profile.component";
+import { PostDetailComponent } from "./components/post-detail/post-detail.component";
 
 const routes: Routes = [
 	{ path: "", component: HomeComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
 		path: "user/:username",
 		component: ProfileComponent,
 	},
+	{ path: "post/:id", component: PostDetailComponent },
 ];
 
 @NgModule({

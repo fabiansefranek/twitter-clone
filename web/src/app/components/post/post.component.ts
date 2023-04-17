@@ -1,4 +1,7 @@
-import { Component, Input } from "@angular/core";
+import { Component, ElementRef, HostListener, Input, ViewChild } from "@angular/core";
+import { Router } from "@angular/router";
+import { AuthService } from "src/app/services/auth/auth.service";
+import { Post, User } from "src/types";
 
 @Component({
 	selector: "app-post",
@@ -6,10 +9,25 @@ import { Component, Input } from "@angular/core";
 	styleUrls: ["./post.component.css"],
 })
 export class PostComponent {
-	@Input() text: string = "";
-	@Input() username: string = "";
-	@Input() createdAt: string = "";
-	@Input() fullname: string = "";
+	constructor(private router: Router, private authService: AuthService) {}
+	user: User = {} as User;
+
+	@Input() post: Post = {} as Post;
+
+	@ViewChild("popup_button") popup_button: ElementRef<HTMLDivElement> = {} as ElementRef<HTMLDivElement>;
+	isPopupShown: boolean = false;
+
+	@HostListener("document:click", ["$event"])
+	clickout(event: any) {
+		if (this.popup_button && !this.popup_button.nativeElement.contains(event.target)) {
+			this.hidePopup();
+		}
+	}
+
+	ngOnInit() {
+		const user = this.authService.getStoredTokenUser();
+		if (user) this.user = user;
+	}
 
 	timeSince(timestamp: string): string {
 		const intervals = [
@@ -30,5 +48,13 @@ export class PostComponent {
 			return rtf.format(-count, interval.label as Intl.RelativeTimeFormatUnit);
 		}
 		return "just now";
+	}
+
+	togglePopup() {
+		this.isPopupShown = !this.isPopupShown;
+	}
+
+	hidePopup() {
+		this.isPopupShown = false;
 	}
 }

@@ -56,6 +56,22 @@ export class AuthService {
 		this.router.navigate(["/"]);
 	}
 
+	parseStoredToken(): AccessToken | null {
+		const token = window.sessionStorage.getItem("token");
+		if (token == null) return null;
+		return this.parseToken(token);
+	}
+
+	getStoredTokenUser(): User | null {
+		const token = this.parseStoredToken();
+		if (token == null) return null;
+		return {
+			id: token.nameid,
+			fullname: token.family_name,
+			username: token.unique_name,
+		} as User;
+	}
+
 	parseToken(token: string): AccessToken | null {
 		if (token == null) throw "Access token is null";
 		try {

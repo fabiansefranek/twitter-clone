@@ -1,24 +1,46 @@
-<div class="flex flex-row w-full p-4 border-t-2 h-fit border-neutral-800">
+<div class="flex flex-row w-full p-4 border-t-2 h-fit border-neutral-800" *ngIf="this.post">
 	<div class="h-full mr-3 w-fit">
 		<img
 			class="w-12 h-12 rounded-full cursor-pointer hover:opacity-95"
 			src="https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png?w=640"
 		/>
 	</div>
-	<div class="flex flex-col flex-1">
+	<div class="flex flex-col flex-1" *ngIf="this.post.user">
 		<div class="flex flex-row justify-between">
 			<div class="flex flex-row gap-2">
-				<a class="font-semibold text-white hover:underline" href="/user/{{ this.username }}">{{ this.fullname }}</a>
+				<a class="font-semibold text-white hover:underline" href="/user/{{ this.post.user.username }}">{{
+					this.post.user.fullname
+				}}</a>
 				<span class="flex flex-row gap-2 font-medium text-neutral-500"
-					><a href="/user/{{ this.username }}">@{{ this.username }}</a>
+					><a href="/user/{{ this.post.user.username }}">@{{ this.post.user.username }}</a>
 					<p>·</p>
-					<p>{{ timeSince(this.createdAt) }}</p></span
+					<p>{{ timeSince(this.post.createdAt.toString()) }}</p></span
 				>
 			</div>
-			<img class="cursor-pointer more" src="assets/more-horizontal.svg" />
+			<div class="relative" id="popup_button" #popup_button>
+				<img class="cursor-pointer more" src="assets/more-horizontal.svg" (click)="togglePopup()" />
+				<div
+					class="{{
+						this.isPopupShown ? '' : 'hidden'
+					}} flex flex-col items-start absolute right-0 bg-black whitespace-nowrap rounded-md shadow shadow-neutral-500 w-max text-white text-lg overflow-hidden"
+				>
+					<div class="flex flex-row p-3 cursor-pointer select-none gap- hover:backdrop-brightness-50 hover:bg-[#111]">
+						<img src="assets/flag.svg" class="w-5" />
+						Tweet melden
+					</div>
+					<div
+						class="flex flex-row w-full gap-1 p-3 cursor-pointer select-none hover:backdrop-brightness-50 hover:bg-[#111]"
+						*ngIf="this.user.id == this.post.user.id"
+					>
+						<img src="assets/trash.svg" class="w-5 stroke-white" />
+						Post löschen
+					</div>
+				</div>
+			</div>
 		</div>
+
 		<div class="text-white">
-			{{ this.text }}
+			{{ this.post.text }}
 		</div>
 		<div class="flex flex-row justify-between w-full pr-8 mt-3">
 			<p title="Reply" class="flex flex-row gap-1 cursor-pointer comment text-neutral-500">

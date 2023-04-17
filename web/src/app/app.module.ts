@@ -15,6 +15,9 @@ import { NavigationComponent } from "./components/navigation/navigation.componen
 import { DataInterceptor } from "./interceptors/data/data.interceptor";
 import { PostformComponent } from "./components/postform/postform.component";
 import { AuthInterceptor } from "./interceptors/auth/auth.interceptor";
+import { PostDetailComponent } from "./components/post-detail/post-detail.component";
+import { PostDropdownComponent } from "./components/post-dropdown/post-dropdown.component";
+import { RouterModule } from "@angular/router";
 
 @NgModule({
 	declarations: [
@@ -27,8 +30,10 @@ import { AuthInterceptor } from "./interceptors/auth/auth.interceptor";
 		PostComponent,
 		NavigationComponent,
 		PostformComponent,
+		PostDetailComponent,
+		PostDropdownComponent,
 	],
-	imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+	imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule, RouterModule],
 	providers: [
 		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: DataInterceptor, multi: true },

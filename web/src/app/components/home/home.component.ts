@@ -3,6 +3,7 @@ import { AuthService } from "src/app/services/auth/auth.service";
 import { PostComponent } from "../post/post.component";
 import { Post, User } from "src/types";
 import { PostService } from "src/app/services/post/post.service";
+import { ActivatedRoute, createUrlTreeFromSnapshot, Event, Router } from "@angular/router";
 
 @Component({
 	selector: "app-home",
@@ -13,7 +14,12 @@ export class HomeComponent {
 	isAuthenticated: boolean = false;
 	user: User = {} as User;
 	posts: Post[] = [];
-	constructor(private authService: AuthService, private postService: PostService) {}
+	constructor(
+		public router: Router,
+		private authService: AuthService,
+		private postService: PostService,
+		private route: ActivatedRoute
+	) {}
 
 	updatePosts(newPost?: Post) {
 		this.postService.getPosts().subscribe((posts) => {
@@ -35,5 +41,12 @@ export class HomeComponent {
 			}
 		});
 		this.updatePosts();
+	}
+
+	handlePostClick(id: number, event: any) {
+		console.log(event.target.tagName);
+		if (event.target.tagName !== "IMG") {
+			this.router.navigate([`/post/${id}`]);
+		}
 	}
 }

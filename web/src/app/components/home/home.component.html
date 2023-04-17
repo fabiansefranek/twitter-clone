@@ -1,9 +1,4 @@
 <app-postform class="w-full" *ngIf="this.isAuthenticated" (postCreated)="this.updatePosts($event)"></app-postform>
 <div *ngFor="let post of posts">
-	<app-post
-		[text]="post.text"
-		[username]="post.user.username"
-		[createdAt]="post.createdAt.toString()"
-		[fullname]="post.user.fullname"
-	></app-post>
+	<app-post [post]="post" (click)="handlePostClick(post.id, $event)"></app-post>
 </div>
