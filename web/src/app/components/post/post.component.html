@@ -24,7 +24,10 @@
 						this.isPopupShown ? '' : 'hidden'
 					}} flex flex-col items-start absolute right-0 bg-black whitespace-nowrap rounded-md shadow shadow-neutral-500 w-max text-white text-lg overflow-hidden"
 				>
-					<div class="flex flex-row p-3 cursor-pointer select-none gap- hover:backdrop-brightness-50 hover:bg-[#111]">
+					<div
+						*ngIf="this.user.id"
+						class="flex flex-row p-3 cursor-pointer select-none gap- hover:backdrop-brightness-50 hover:bg-[#111]"
+					>
 						<img src="assets/flag.svg" class="w-5" />
 						Tweet melden
 					</div>
@@ -38,10 +41,12 @@
 				</div>
 			</div>
 		</div>
-
-		<div class="text-white">
-			{{ this.post.text }}
+		<div class="w-full">
+			<p class="text-white w-fit">
+				{{ this.post.text }}
+			</p>
 		</div>
+
 		<div class="flex flex-row justify-between w-full pr-8 mt-3">
 			<p title="Reply" class="flex flex-row gap-1 cursor-pointer comment text-neutral-500">
 				<img class="w-5" src="assets/message-circle.svg" />3
