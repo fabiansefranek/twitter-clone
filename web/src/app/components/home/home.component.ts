@@ -45,7 +45,8 @@ export class HomeComponent {
 
 	handlePostClick(id: number, event: any) {
 		console.log(event.target.tagName);
-		if (event.target.tagName !== "IMG") {
+		const blacklist = ["BUTTON", "A", "IMG", "P"];
+		if (!blacklist.includes(event.target.tagName)) {
 			this.router.navigate([`/post/${id}`]);
 		}
 	}
