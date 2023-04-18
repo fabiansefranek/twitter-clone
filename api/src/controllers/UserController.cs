@@ -14,9 +14,9 @@ public class UserController
         return Utils.Response("", users, users.Count, HttpStatusCode.OK);
     }
 
-    public static async Task<IResult> GetUser(int id, TwitterCloneContext db)
+    public static async Task<IResult> GetUser(string username, TwitterCloneContext db)
     {
-        var user = await db.Users.FindAsync(id);
+	    var user = await db.Users.FirstOrDefaultAsync(u => u.Username == username);
         if (user == null)
         {
             return Utils.Response(

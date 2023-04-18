@@ -19,7 +19,7 @@ public class Routes
         app.MapDelete("/posts/{id:int}", PostController.DeletePost).RequireAuthorization("user");
 
         app.MapGet("/users", UserController.GetUsers);
-        app.MapGet("/users/{id:int}", UserController.GetUser);
+        app.MapGet("/users/{username}", UserController.GetUser);
         app.MapPut("/users", UserController.UpdateUser).RequireAuthorization("user");
         app.MapDelete("/users", UserController.DeleteUser).RequireAuthorization("user");
         app.MapGet("/users/{id:int}/posts", PostController.GetPosts);

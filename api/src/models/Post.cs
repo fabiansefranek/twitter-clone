@@ -8,8 +8,7 @@ public class Post
 
     public Post(User user, string text)
     {
-        User = user;
-        UserId = user.Id;
+								UserId = user.Id;
         Text = text;
         CreatedAt = Utils.GetTimestamp();
     }

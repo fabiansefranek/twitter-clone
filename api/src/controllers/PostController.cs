@@ -7,7 +7,7 @@ namespace twitter_clone.controllers;
 
 public class PostController
 {
-    public static async Task<IResult> CreatePost(Post post, User user, TwitterCloneContext db)
+    public static async Task<IResult> CreatePost(PostDTO post, User user, TwitterCloneContext db)
     {
         db.Posts.Add(new Post(user: user, text: post.Text));
         await db.SaveChangesAsync();
