@@ -22,11 +22,12 @@
 				<div
 					class="{{
 						this.isPopupShown ? '' : 'hidden'
-					}} flex flex-col items-start absolute right-0 bg-black whitespace-nowrap rounded-md shadow shadow-neutral-500 w-max text-white text-lg overflow-hidden"
+					}} z-50 flex flex-col items-start absolute right-0 bg-black whitespace-nowrap rounded-md shadow shadow-neutral-500 w-max text-white text-lg overflow-hidden"
 				>
 					<div
 						*ngIf="this.user.id"
-						class="flex flex-row p-3 cursor-pointer select-none gap- hover:backdrop-brightness-50 hover:bg-[#111]"
+						class="flex flex-row w-full p-3 cursor-pointer select-none gap-1 hover:backdrop-brightness-50 hover:bg-[#111]"
+						(click)="this.reportPost()"
 					>
 						<img src="assets/flag.svg" class="w-5" />
 						Tweet melden
@@ -34,6 +35,15 @@
 					<div
 						class="flex flex-row w-full gap-1 p-3 cursor-pointer select-none hover:backdrop-brightness-50 hover:bg-[#111]"
 						*ngIf="this.user.id == this.post.user.id"
+						(click)="this.editPost()"
+					>
+						<img src="assets/pen.svg" class="w-5 stroke-white" />
+						Post bearbeiten
+					</div>
+					<div
+						class="flex flex-row w-full gap-1 p-3 cursor-pointer select-none hover:backdrop-brightness-50 hover:bg-[#111]"
+						*ngIf="this.user.id == this.post.user.id"
+						(click)="this.deletePost()"
 					>
 						<img src="assets/trash.svg" class="w-5 stroke-white" />
 						Post löschen

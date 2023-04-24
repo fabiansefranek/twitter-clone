@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import { AuthService } from "src/app/services/auth/auth.service";
-import { PostComponent } from "../post/post.component";
 import { Post, User } from "src/types";
 import { PostService } from "src/app/services/post/post.service";
 import { ActivatedRoute, createUrlTreeFromSnapshot, Event, Router } from "@angular/router";
@@ -14,6 +13,7 @@ export class HomeComponent {
 	isAuthenticated: boolean = false;
 	user: User = {} as User;
 	posts: Post[] = [];
+
 	constructor(
 		public router: Router,
 		private authService: AuthService,
@@ -40,13 +40,17 @@ export class HomeComponent {
 				});
 			}
 		});
+		this.postService.postCreated.subscribe((post) => {
+			this.updatePosts(post);
+		});
+
 		this.updatePosts();
 	}
 
 	handlePostClick(id: number, event: any) {
-		console.log(event.target.tagName);
+		const idBlacklist = ["popup-button"];
 		const blacklist = ["BUTTON", "A", "IMG", "P"];
-		if (!blacklist.includes(event.target.tagName)) {
+		if (!blacklist.includes(event.target.tagName) && !idBlacklist.includes(event.target.id)) {
 			this.router.navigate([`/post/${id}`]);
 		}
 	}

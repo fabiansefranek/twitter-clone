@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { EventEmitter, Injectable, Output } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { Post } from "src/types";
@@ -10,6 +10,8 @@ import { Post } from "src/types";
 export class PostService {
 	private postUrl = `${environment.BASE_URL}/posts`;
 	constructor(private http: HttpClient) {}
+
+	@Output() postCreated = new EventEmitter();
 
 	getPosts(): Observable<Post[]> {
 		return this.http.get<Post[]>(this.postUrl);

@@ -57,4 +57,10 @@ export class PostComponent {
 	hidePopup() {
 		this.isPopupShown = false;
 	}
+
+	reportPost() {}
+
+	editPost() {}
+
+	deletePost() {}
 }

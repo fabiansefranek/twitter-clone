@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/services/auth/auth.service";
 
@@ -8,6 +8,8 @@ import { AuthService } from "src/app/services/auth/auth.service";
 	styleUrls: ["./navigation.component.css"],
 })
 export class NavigationComponent {
+	@Input() openEditorPopup: Function = () => {};
+
 	isAuthenticated: boolean = false;
 	constructor(private router: Router, public authService: AuthService) {}
 
