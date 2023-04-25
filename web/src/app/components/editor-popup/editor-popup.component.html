@@ -5,7 +5,7 @@
 		class="z-50 gap-1 flex flex-col absolute top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%] bg-black rounded-xl w-[30vw] h-fit p-5 text-white overflow-hidden"
 	>
 		<div class="self-end flex-1">
-			<img class="cursor-pointer" src="assets/x.svg" (click)="this.closeEditorPopup()" />
+			<img class="cursor-pointer" src="assets/x.svg" (click)="this.popupService.closeEditorPopup()" />
 		</div>
 		<div class="flex flex-row items-start gap-3">
 			<div class="h-full w-fit">
@@ -21,13 +21,14 @@
 					placeholder="What's happening?"
 					[(ngModel)]="this.text"
 					oninput="this.style.height = 'auto';this.style.height = this.scrollHeight + 'px';"
-				></textarea>
+				>
+				</textarea>
 				<div class="flex justify-end w-full">
 					<button
 						class="px-4 py-1 font-bold text-white rounded-full bg-sky-500 hover:bg-sky-600 active:bg-sky-700"
 						(click)="this.handleSubmit()"
 					>
-						Tweet
+						{{ this.popupService.updatePost.text ? "Update" : "Tweet" }}
 					</button>
 				</div>
 			</div>

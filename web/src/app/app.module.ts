@@ -16,7 +16,6 @@ import { DataInterceptor } from "./interceptors/data/data.interceptor";
 import { PostformComponent } from "./components/postform/postform.component";
 import { AuthInterceptor } from "./interceptors/auth/auth.interceptor";
 import { PostDetailComponent } from "./components/post-detail/post-detail.component";
-import { PostDropdownComponent } from "./components/post-dropdown/post-dropdown.component";
 import { RouterModule } from "@angular/router";
 import { EditorPopupComponent } from "./components/editor-popup/editor-popup.component";
 
@@ -32,7 +31,6 @@ import { EditorPopupComponent } from "./components/editor-popup/editor-popup.com
 		NavigationComponent,
 		PostformComponent,
 		PostDetailComponent,
-		PostDropdownComponent,
 		EditorPopupComponent,
 	],
 	imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule, RouterModule],

@@ -48,9 +48,14 @@ export class HomeComponent {
 	}
 
 	handlePostClick(id: number, event: any) {
-		const idBlacklist = ["popup-button"];
-		const blacklist = ["BUTTON", "A", "IMG", "P"];
-		if (!blacklist.includes(event.target.tagName) && !idBlacklist.includes(event.target.id)) {
+		const idBlacklist = ["popup-button", "post_popup"];
+		const classBlacklist = ["post_popup_item"];
+		const tagBlacklist = ["BUTTON", "A", "IMG", "P"];
+		if (
+			!tagBlacklist.includes(event.target.tagName) &&
+			!idBlacklist.includes(event.target.id) &&
+			![...event.target.classList].some((className) => classBlacklist.includes(className))
+		) {
 			this.router.navigate([`/post/${id}`]);
 		}
 	}

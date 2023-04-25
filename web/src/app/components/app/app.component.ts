@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, HostListener, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
+import { PopupService } from "src/app/services/popup/popup.service";
 
 @Component({
 	selector: "app-root",
@@ -9,18 +10,5 @@ import { Router } from "@angular/router";
 export class AppComponent {
 	title = "twitter-clone";
 
-	isEditorPopupShown: boolean = false;
-
-	constructor(public router: Router, private cdRef: ChangeDetectorRef) {}
-
-	openEditorPopup = () => {
-		// arrow function, otherwise cdRef is undefined, because of "this" context
-		this.cdRef.detectChanges(); // detect ui changes
-		this.isEditorPopupShown = true;
-	};
-
-	closeEditorPopup = () => {
-		this.isEditorPopupShown = false;
-		this.cdRef.detectChanges();
-	};
+	constructor(public router: Router, public popupService: PopupService) {}
 }

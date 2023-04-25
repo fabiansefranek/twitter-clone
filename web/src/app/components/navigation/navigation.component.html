@@ -13,7 +13,7 @@
 	<a
 		*ngIf="this.authService.hasToken()"
 		class="w-full px-5 py-3 text-center rounded-full cursor-pointer select-none bg-sky-500 hover:bg-sky-600 active:bg-sky-700"
-		(click)="this.openEditorPopup()"
+		(click)="this.popupService.toggleEditorPopup()"
 		>Tweet</a
 	>
 </nav>

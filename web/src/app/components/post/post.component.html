@@ -20,20 +20,21 @@
 			<div class="relative" id="popup_button" #popup_button>
 				<img class="cursor-pointer more" src="assets/more-horizontal.svg" (click)="togglePopup()" />
 				<div
+					id="post_popup"
 					class="{{
 						this.isPopupShown ? '' : 'hidden'
 					}} z-50 flex flex-col items-start absolute right-0 bg-black whitespace-nowrap rounded-md shadow shadow-neutral-500 w-max text-white text-lg overflow-hidden"
 				>
 					<div
 						*ngIf="this.user.id"
-						class="flex flex-row w-full p-3 cursor-pointer select-none gap-1 hover:backdrop-brightness-50 hover:bg-[#111]"
+						class="post_popup_item flex flex-row w-full p-3 cursor-pointer select-none gap-1 hover:backdrop-brightness-50 hover:bg-[#111]"
 						(click)="this.reportPost()"
 					>
 						<img src="assets/flag.svg" class="w-5" />
 						Tweet melden
 					</div>
 					<div
-						class="flex flex-row w-full gap-1 p-3 cursor-pointer select-none hover:backdrop-brightness-50 hover:bg-[#111]"
+						class="post_popup_item flex flex-row w-full gap-1 p-3 cursor-pointer select-none hover:backdrop-brightness-50 hover:bg-[#111]"
 						*ngIf="this.user.id == this.post.user.id"
 						(click)="this.editPost()"
 					>
@@ -41,7 +42,7 @@
 						Post bearbeiten
 					</div>
 					<div
-						class="flex flex-row w-full gap-1 p-3 cursor-pointer select-none hover:backdrop-brightness-50 hover:bg-[#111]"
+						class="post_popup_item flex flex-row w-full gap-1 p-3 cursor-pointer select-none hover:backdrop-brightness-50 hover:bg-[#111]"
 						*ngIf="this.user.id == this.post.user.id"
 						(click)="this.deletePost()"
 					>

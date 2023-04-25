@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostListener, Input, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/services/auth/auth.service";
+import { PopupService } from "src/app/services/popup/popup.service";
 import { Post, User } from "src/types";
 
 @Component({
@@ -9,7 +10,7 @@ import { Post, User } from "src/types";
 	styleUrls: ["./post.component.css"],
 })
 export class PostComponent {
-	constructor(private router: Router, private authService: AuthService) {}
+	constructor(private router: Router, private authService: AuthService, public popupService: PopupService) {}
 	user: User = {} as User;
 
 	@Input() post: Post = {} as Post;
@@ -60,7 +61,9 @@ export class PostComponent {
 
 	reportPost() {}
 
-	editPost() {}
+	editPost() {
+		this.popupService.openEditorPopup(this.post);
+	}
 
 	deletePost() {}
 }
