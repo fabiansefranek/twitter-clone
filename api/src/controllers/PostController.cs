@@ -56,11 +56,7 @@ public class PostController
         return Utils.Response("", new PostDTO(post), 1, HttpStatusCode.OK);
     }
 
-    public static async Task<IResult> DeletePost(
-        int id,
-        User user,
-        TwitterCloneContext db
-    )
+    public static async Task<IResult> DeletePost(int id, User user, TwitterCloneContext db)
     {
         var post = await db.Posts.FindAsync(id);
         if (post == null)
@@ -105,6 +101,8 @@ public class PostController
                 HttpStatusCode.Forbidden
             );
         }
+
+        post.Text = updatedPost.Text;
 
         db.Posts.Update(post);
         await db.SaveChangesAsync();
