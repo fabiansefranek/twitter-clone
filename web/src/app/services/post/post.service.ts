@@ -24,4 +24,8 @@ export class PostService {
 	createPost(post: Post): Observable<Post> {
 		return this.http.post<Post>(this.postUrl, post);
 	}
+
+	updatePost(post: Post): Observable<Post> {
+		return this.http.put<Post>(this.postUrl, post);
+	}
 }
