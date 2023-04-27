@@ -12,8 +12,6 @@ import { Post } from "src/types";
 export class EditorPopupComponent {
 	constructor(private authService: AuthService, private postService: PostService, public popupService: PopupService) {}
 
-	@Output() postCreated = new EventEmitter();
-
 	text: string = this.popupService.updatePost.text ? this.popupService.updatePost.text : "";
 
 	async handleSubmit() {
@@ -28,7 +26,9 @@ export class EditorPopupComponent {
 				text: this.text,
 				updatedAt: unix_timestamp,
 			} as Post;
-			this.postService.updatePost(updatedPost).subscribe((post) => {});
+			this.postService.updatePost(updatedPost).subscribe((post) => {
+				this.postService.fetchPosts.emit();
+			});
 		} else {
 			// create post
 			const post = {
@@ -38,9 +38,9 @@ export class EditorPopupComponent {
 			} as Post;
 			this.postService.createPost(post).subscribe((post) => {
 				this.text = "";
+				this.postService.fetchPosts.emit();
 			});
 		}
-		this.postService.postCreated.emit();
 		this.popupService.closeEditorPopup();
 	}
 }

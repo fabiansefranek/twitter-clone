@@ -2,6 +2,7 @@ import { Component, ElementRef, HostListener, Input, ViewChild } from "@angular/
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/services/auth/auth.service";
 import { PopupService } from "src/app/services/popup/popup.service";
+import { PostService } from "src/app/services/post/post.service";
 import { Post, User } from "src/types";
 
 @Component({
@@ -10,7 +11,12 @@ import { Post, User } from "src/types";
 	styleUrls: ["./post.component.css"],
 })
 export class PostComponent {
-	constructor(private router: Router, private authService: AuthService, public popupService: PopupService) {}
+	constructor(
+		private router: Router,
+		private authService: AuthService,
+		public popupService: PopupService,
+		public postService: PostService
+	) {}
 	user: User = {} as User;
 
 	@Input() post: Post = {} as Post;
@@ -65,5 +71,11 @@ export class PostComponent {
 		this.popupService.openEditorPopup(this.post);
 	}
 
-	deletePost() {}
+	deletePost() {
+		console.log("delete post");
+		this.postService.deletePost(this.post).subscribe(() => {
+			this.postService.fetchPosts.emit();
+		});
+		//this.postService.fetchPosts.emit();
+	}
 }

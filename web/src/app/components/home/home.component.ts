@@ -23,11 +23,7 @@ export class HomeComponent {
 
 	updatePosts(newPost?: Post) {
 		this.postService.getPosts().subscribe((posts) => {
-			if (newPost) {
-				this.posts = [newPost, ...posts];
-			} else {
-				this.posts = posts;
-			}
+			this.posts = posts;
 		});
 	}
 
@@ -40,8 +36,8 @@ export class HomeComponent {
 				});
 			}
 		});
-		this.postService.postCreated.subscribe((post) => {
-			this.updatePosts(post);
+		this.postService.fetchPosts.subscribe((post) => {
+			this.updatePosts();
 		});
 
 		this.updatePosts();

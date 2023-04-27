@@ -9,7 +9,6 @@ import { Post } from "src/types";
 	styleUrls: ["./postform.component.css"],
 })
 export class PostformComponent {
-	@Output() postCreated = new EventEmitter();
 	public text: string = "";
 	constructor(private postService: PostService, private authService: AuthService) {}
 
@@ -26,6 +25,6 @@ export class PostformComponent {
 		this.postService.createPost(post).subscribe((post) => {
 			this.text = "";
 		});
-		this.postService.postCreated.emit(post);
+		this.postService.fetchPosts.emit(post);
 	}
 }
