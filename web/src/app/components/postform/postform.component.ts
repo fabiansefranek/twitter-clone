@@ -24,7 +24,7 @@ export class PostformComponent {
 		} as Post;
 		this.postService.createPost(post).subscribe((post) => {
 			this.text = "";
+			this.postService.fetchPosts.emit();
 		});
-		this.postService.fetchPosts.emit(post);
 	}
 }
