@@ -21,14 +21,16 @@ export class HomeComponent {
 		private route: ActivatedRoute
 	) {}
 
-	updatePosts(newPost?: Post) {
+	updatePosts() {
 		this.postService.getPosts().subscribe((posts) => {
 			this.posts = posts;
 		});
 	}
 
 	ngOnInit() {
-		const isAuthenticated = this.authService.isAuthenticated().then((isAuthenticated) => {
+		this.updatePosts();
+
+		this.authService.isAuthenticated().then((isAuthenticated) => {
 			this.isAuthenticated = isAuthenticated;
 			if (isAuthenticated) {
 				const user = this.authService.getUser().then((user) => {
@@ -36,11 +38,9 @@ export class HomeComponent {
 				});
 			}
 		});
-		this.postService.fetchPosts.subscribe((post) => {
+		this.postService.fetchPosts.subscribe(() => {
 			this.updatePosts();
 		});
-
-		this.updatePosts();
 	}
 
 	handlePostClick(id: number, event: any) {
