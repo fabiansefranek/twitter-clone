@@ -31,7 +31,16 @@ export class PostComponent {
 		}
 	}
 
+	fetchPost() {
+		this.postService.getPost(this.post.id.toString()).subscribe((post) => {
+			this.post = post;
+		});
+	}
+
 	ngOnInit() {
+		this.postService.fetchPosts.subscribe(() => {
+			this.fetchPost();
+		});
 		const user = this.authService.getStoredTokenUser();
 		if (user) this.user = user;
 	}
@@ -76,6 +85,5 @@ export class PostComponent {
 		this.postService.deletePost(this.post).subscribe(() => {
 			this.postService.fetchPosts.emit();
 		});
-		//this.postService.fetchPosts.emit();
 	}
 }
