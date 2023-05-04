@@ -17,9 +17,7 @@ export class NavigationComponent {
 		return this.router.url == path ? "font-semibold" : "font-normal";
 	}
 
-	icon(path: string): string {
-		let name = path.replace("/", "");
-		if (name === "") name = "home";
-		return this.router.url == path ? `assets/${name}-solid.svg` : `assets/${name}.svg`;
+	icon(path: string, icon: string): string {
+		return this.router.url == path ? `assets/${icon}-solid.svg` : `assets/${icon}.svg`;
 	}
 }

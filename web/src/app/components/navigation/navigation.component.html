@@ -2,13 +2,23 @@
 	<a
 		class="{{ font('/') }} flex gap-4 px-4 py-3 rounded-full w-fit hover:bg-neutral-800 active:bg-neutral-700"
 		routerLink=""
-		><img src="{{ icon('/') }}" />Home</a
+		><img src="{{ icon('/', 'home') }}" />Home</a
 	>
 	<a
-		class="{{ font('/profile') }} flex gap-4 px-4 py-3 rounded-full w-fit hover:bg-neutral-800 active:bg-neutral-700"
-		routerLink="profile"
+		*ngIf="!this.authService.hasToken()"
+		class="{{ font('/login') }} flex gap-4 px-4 py-3 rounded-full w-fit hover:bg-neutral-800 active:bg-neutral-700"
+		[routerLink]="['/login']"
 	>
-		<img src="{{ icon('/profile') }}" />Profile</a
+		<img src="{{ icon('/login', 'profile') }}" />Login</a
+	>
+	<a
+		*ngIf="this.authService.hasToken()"
+		class="{{
+			font('/user/' + this.authService.user.username)
+		}} flex gap-4 px-4 py-3 rounded-full w-fit hover:bg-neutral-800 active:bg-neutral-700"
+		[routerLink]="['/user', this.authService.user.username]"
+	>
+		<img src="{{ icon('/user/' + this.authService.user.username, 'profile') }}" />Profile</a
 	>
 	<a
 		*ngIf="this.authService.hasToken()"
