@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { PostService } from "src/app/services/post/post.service";
 import { Post } from "src/types";
 
@@ -10,7 +10,7 @@ import { Post } from "src/types";
 })
 export class PostDetailComponent {
 	@Input() post: Post = {} as Post;
-	constructor(private route: ActivatedRoute, private postService: PostService) {}
+	constructor(public router: Router, private route: ActivatedRoute, private postService: PostService) {}
 
 	ngOnInit() {
 		const postId = this.route.snapshot.paramMap.get("id");
