@@ -10,7 +10,7 @@ import { Post } from "src/types";
 })
 export class PostformComponent {
 	public text: string = "";
-	constructor(private postService: PostService, private authService: AuthService) {}
+	constructor(private postService: PostService, public authService: AuthService) {}
 
 	async handleSubmit() {
 		const user = await this.authService.getUser();

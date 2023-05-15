@@ -13,7 +13,7 @@ import { Post, User } from "src/types";
 export class PostComponent {
 	constructor(
 		private router: Router,
-		private authService: AuthService,
+		public authService: AuthService,
 		public popupService: PopupService,
 		public postService: PostService
 	) {}

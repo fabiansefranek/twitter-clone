@@ -10,7 +10,7 @@ import { Post } from "src/types";
 	styleUrls: ["./editor-popup.component.css"],
 })
 export class EditorPopupComponent {
-	constructor(private authService: AuthService, private postService: PostService, public popupService: PopupService) {}
+	constructor(public authService: AuthService, private postService: PostService, public popupService: PopupService) {}
 
 	text: string = this.popupService.updatePost.text ? this.popupService.updatePost.text : "";
 

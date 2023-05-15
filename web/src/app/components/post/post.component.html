@@ -2,7 +2,8 @@
 	<div class="h-full mr-3 w-fit">
 		<img
 			class="w-12 h-12 rounded-full cursor-pointer hover:opacity-95"
-			src="https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png?w=640"
+			src="{{ this.authService.user.profilePicture ?? '/assets/profile.webp' }}"
+			routerLink="/user/{{ this.post.user.username }}"
 		/>
 	</div>
 	<div class="flex flex-col flex-1" *ngIf="this.post.user">

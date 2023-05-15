@@ -9,10 +9,11 @@ import { environment } from "src/environments/environment";
 })
 export class AuthService {
 	private authUrl = `${environment.BASE_URL}/auth`; //TODO: use env variable for port
+	public user: User = this.getStoredTokenUser() ?? ({} as User);
 	constructor(private http: HttpClient, private router: Router) {}
 
 	login(user: User) {
-		const request = this.http
+		this.http
 			.post(`${this.authUrl}/login`, user, {
 				headers: new HttpHeaders({
 					"Content-Type": "application/json",
@@ -23,6 +24,7 @@ export class AuthService {
 					if (data != null) {
 						this.router.navigate(["/"]);
 						this.storeToken(data);
+						this.user = this.getStoredTokenUser() ?? ({} as User);
 					}
 				},
 				error: (err) => {
@@ -53,6 +55,7 @@ export class AuthService {
 		window.sessionStorage.removeItem("token");
 		window.sessionStorage.removeItem("tokenExpiry");
 		window.sessionStorage.removeItem("username");
+		this.user = {} as User;
 		this.router.navigate(["/"]);
 	}
 
