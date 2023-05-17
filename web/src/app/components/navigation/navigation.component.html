@@ -1,29 +1,46 @@
-<nav class="pt-3 flex flex-col gap-3 text-xl w-[10vw] text-white">
-	<a
-		class="{{ font('/') }} flex gap-4 px-4 py-3 rounded-full w-fit hover:bg-neutral-800 active:bg-neutral-700"
-		routerLink=""
-		><img src="{{ icon('/', 'home') }}" />Home</a
+<nav class="pt-3 flex flex-col gap-3 pb-2 text-xl w-[10vw] h-full justify-between text-white">
+	<div class="flex flex-col gap-3">
+		<a
+			class="{{ font('/') }} flex gap-4 px-4 py-3 rounded-full w-fit hover:bg-neutral-800 active:bg-neutral-700"
+			routerLink=""
+			><img src="{{ icon('/', 'home') }}" />Home</a
+		>
+		<a
+			*ngIf="!this.authService.hasToken()"
+			class="{{ font('/login') }} flex gap-4 px-4 py-3 rounded-full w-fit hover:bg-neutral-800 active:bg-neutral-700"
+			[routerLink]="['/login']"
+		>
+			<img src="{{ icon('/login', 'profile') }}" />Profile</a
+		>
+		<a
+			*ngIf="this.authService.user.username"
+			class="{{
+				font('/user/' + this.authService.user.username)
+			}} flex gap-4 px-4 py-3 rounded-full w-fit hover:bg-neutral-800 active:bg-neutral-700"
+			[routerLink]="['/user', this.authService.user.username]"
+		>
+			<img src="{{ icon('/user/' + this.authService.user.username, 'profile') }}" />Profile</a
+		>
+		<a
+			*ngIf="this.authService.hasToken()"
+			class="w-full px-5 py-3 text-center rounded-full cursor-pointer select-none bg-sky-500 hover:bg-sky-600 active:bg-sky-700"
+			(click)="this.popupService.toggleEditorPopup()"
+			>Tweet</a
+		>
+	</div>
+	<div
+		*ngIf="this.authService.user.username"
+		class="flex flex-row items-center gap-2 px-3 py-1 rounded-full cursor-pointer hover:bg-neutral-900"
+		(click)="this.authService.logout()"
+		title="Click to logout"
 	>
-	<a
-		*ngIf="!this.authService.hasToken()"
-		class="{{ font('/login') }} flex gap-4 px-4 py-3 rounded-full w-fit hover:bg-neutral-800 active:bg-neutral-700"
-		[routerLink]="['/login']"
-	>
-		<img src="{{ icon('/login', 'profile') }}" />Login</a
-	>
-	<a
-		*ngIf="this.authService.hasToken()"
-		class="{{
-			font('/user/' + this.authService.user.username)
-		}} flex gap-4 px-4 py-3 rounded-full w-fit hover:bg-neutral-800 active:bg-neutral-700"
-		[routerLink]="['/user', this.authService.user.username]"
-	>
-		<img src="{{ icon('/user/' + this.authService.user.username, 'profile') }}" />Profile</a
-	>
-	<a
-		*ngIf="this.authService.hasToken()"
-		class="w-full px-5 py-3 text-center rounded-full cursor-pointer select-none bg-sky-500 hover:bg-sky-600 active:bg-sky-700"
-		(click)="this.popupService.toggleEditorPopup()"
-		>Tweet</a
-	>
+		<img
+			class="rounded-full cursor-pointer w-9 h-9"
+			src="{{ this.authService.user.profilePicture ?? '/assets/profile.webp' }}"
+		/>
+		<div class="flex flex-col overflow-hidden">
+			<p class="font-bold truncate text-md">{{ this.authService.user.fullname }}</p>
+			<p class="text-sm text-neutral-500">@{{ this.authService.user.username }}</p>
+		</div>
+	</div>
 </nav>
