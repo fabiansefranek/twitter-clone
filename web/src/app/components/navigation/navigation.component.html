@@ -16,7 +16,7 @@
 			*ngIf="this.authService.user.username"
 			class="{{
 				font('/user/' + this.authService.user.username)
-			}} flex gap-4 px-4 py-3 rounded-full w-full hover:bg-neutral-800 active:bg-neutral-700"
+			}} flex gap-4 px-4 py-3 rounded-full w-fit hover:bg-neutral-800 active:bg-neutral-700"
 			[routerLink]="['/user', this.authService.user.username]"
 		>
 			<img src="{{ icon('/user/' + this.authService.user.username, 'profile') }}" />Profile</a
