@@ -1,4 +1,4 @@
-<nav class="pt-3 flex flex-col gap-3 pb-2 text-xl w-[10vw] h-full justify-between text-white">
+<nav class="pt-3 flex flex-col gap-3 pb-2 text-xl w-[15vw] lg:w-[12vw] h-full justify-between text-white">
 	<div class="flex flex-col gap-3">
 		<a
 			class="{{ font('/') }} flex gap-4 px-4 py-3 rounded-full w-fit hover:bg-neutral-800 active:bg-neutral-700"
@@ -16,7 +16,7 @@
 			*ngIf="this.authService.user.username"
 			class="{{
 				font('/user/' + this.authService.user.username)
-			}} flex gap-4 px-4 py-3 rounded-full w-fit hover:bg-neutral-800 active:bg-neutral-700"
+			}} flex gap-4 px-4 py-3 rounded-full w-full hover:bg-neutral-800 active:bg-neutral-700"
 			[routerLink]="['/user', this.authService.user.username]"
 		>
 			<img src="{{ icon('/user/' + this.authService.user.username, 'profile') }}" />Profile</a
@@ -30,7 +30,7 @@
 	</div>
 	<div
 		*ngIf="this.authService.user.username"
-		class="flex flex-row items-center gap-2 px-3 py-1 rounded-full cursor-pointer hover:bg-neutral-900"
+		class="flex flex-row items-center w-full gap-2 px-3 py-1 rounded-full cursor-pointer hover:bg-neutral-900"
 		(click)="this.authService.logout()"
 		title="Click to logout"
 	>
