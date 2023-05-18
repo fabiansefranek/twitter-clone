@@ -1,7 +1,74 @@
-<p class="text-lg text-white">Hello {{ user.username }}</p>
-<button
-	*ngIf="user.username"
-	class="px-5 py-3 text-center text-white rounded-full bg-sky-500 hover:bg-sky-600 active:bg-sky-700"
->
-	Logout
-</button>
+<div class="text-white">
+	<div class="flex flex-row items-center gap-5 p-2">
+		<div
+			class="p-2 rounded-full cursor-pointer hover:bg-neutral-900 h-fit"
+			(click)="this.router.navigate(['..'])"
+			title="Back"
+		>
+			<img src="assets/arrow-left.svg" />
+		</div>
+		<div class="flex flex-col">
+			<p class="text-xl font-bold">{{ this.user.username }}</p>
+			<p class="text-sm text-neutral-500">1.000 Tweets</p>
+		</div>
+	</div>
+	<div class="border-b-2 border-neutral-800">
+		<img
+			src="https://images.wondershare.com/repairit/aticle/2021/08/twitter-header-photo-issues-1.jpg"
+			class="h-[20vh] object-cover w-full"
+		/>
+		<div class="relative p-4">
+			<img
+				src="{{ this.user.profilePicture || '/assets/profile.webp' }}"
+				class="absolute object-cover top-[-4rem] left-[1rem] w-32 h-32 border-4 border-black rounded-full cursor-pointer hover:brightness-95"
+			/>
+			<div class="h-[4rem] flex flex-row justify-end">
+				<button
+					*ngIf="this.authService.user.username && this.user.username !== this.authService.user.username"
+					class="px-4 py-2 font-bold text-black bg-white rounded-full hover:bg-neutral-200 h-fit"
+				>
+					Follow
+				</button>
+				<button
+					*ngIf="this.user.username === this.authService.user.username"
+					class="px-4 py-2 font-bold bg-transparent border rounded-full text-sky-500 border-sky-500 hover:bg-sky-600 hover:text-white hover:border-sky-600 h-fit"
+					(click)="this.popupService.openPopup('profile-editor')"
+				>
+					Edit Profile
+				</button>
+			</div>
+			<div class="flex flex-col gap-2">
+				<div>
+					<p class="text-2xl font-bold">{{ this.user.fullname }}</p>
+					<p class="text-lg text-neutral-500">@{{ this.user.username }}</p>
+				</div>
+				<p>{{ this.user.biography }}</p>
+				<div class="flex flex-row gap-5">
+					<div class="flex flex-row items-center gap-1">
+						<img src="assets/map-pin.svg" class="h-[1em]" />
+						<p class="text-neutral-500">Vienna</p>
+					</div>
+					<div class="flex flex-row items-center gap-1">
+						<img src="assets/calendar.svg" class="h-[1em]" />
+						<p class="text-neutral-500">Joined July 2019</p>
+					</div>
+				</div>
+				<div class="flex flex-row gap-5">
+					<div class="flex flex-row items-center gap-1">
+						<p class="text-neutral-500">
+							<span class="font-bold text-white cursor-pointer hover:underline">7,000</span> Following
+						</p>
+					</div>
+					<div class="flex flex-row items-center gap-1">
+						<p class="text-neutral-500">
+							<span class="font-bold text-white cursor-pointer hover:underline">12.8k</span> Followers
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div *ngFor="let post of posts">
+		<app-post [post]="post" (click)="handlePostClick(post.id, $event)"></app-post>
+	</div>
+</div>
