@@ -35,8 +35,8 @@
 		title="Click to logout"
 	>
 		<img
-			class="rounded-full cursor-pointer w-9 h-9"
-			src="{{ this.authService.user.profilePicture ?? '/assets/profile.webp' }}"
+			class="object-cover rounded-full cursor-pointer w-9 h-9"
+			src="{{ this.user.profilePicture || '/assets/profile.webp' }}"
 		/>
 		<div class="flex flex-col overflow-hidden">
 			<p class="font-bold truncate text-md">{{ this.authService.user.fullname }}</p>

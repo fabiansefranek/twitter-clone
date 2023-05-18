@@ -41,6 +41,6 @@ export class EditorPopupComponent {
 				this.postService.fetchPosts.emit();
 			});
 		}
-		this.popupService.closeEditorPopup();
+		this.popupService.closePopup("editor");
 	}
 }

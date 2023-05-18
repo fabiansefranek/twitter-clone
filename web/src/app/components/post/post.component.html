@@ -1,19 +1,19 @@
 <div class="flex flex-row w-full p-4 border-b-2 h-fit border-neutral-800" *ngIf="this.post">
 	<div class="h-full mr-3 w-fit">
 		<img
-			class="w-12 h-12 rounded-full cursor-pointer hover:opacity-95"
-			src="{{ this.authService.user.profilePicture ?? '/assets/profile.webp' }}"
+			class="object-cover w-12 h-12 rounded-full cursor-pointer hover:opacity-95"
+			src="{{ this.post.user.profilePicture || '/assets/profile.webp' }}"
 			routerLink="/user/{{ this.post.user.username }}"
 		/>
 	</div>
 	<div class="flex flex-col flex-1" *ngIf="this.post.user">
 		<div class="flex flex-row justify-between">
 			<div class="flex flex-row gap-2">
-				<a class="font-semibold text-white hover:underline" href="/user/{{ this.post.user.username }}">{{
+				<a class="font-semibold text-white hover:underline" routerLink="/user/{{ this.post.user.username }}">{{
 					this.post.user.fullname
 				}}</a>
 				<span class="flex flex-row gap-2 font-medium text-neutral-500"
-					><a href="/user/{{ this.post.user.username }}">@{{ this.post.user.username }}</a>
+					><a routerLink="/user/{{ this.post.user.username }}">@{{ this.post.user.username }}</a>
 					<p>·</p>
 					<p>{{ timeSince(this.post.createdAt.toString()) }}</p></span
 				>

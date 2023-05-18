@@ -1,27 +1,35 @@
 import { ChangeDetectorRef, Injectable } from "@angular/core";
-import { Post } from "src/types";
+import { Post, User } from "src/types";
 
 @Injectable({
 	providedIn: "root",
 })
 export class PopupService {
 	constructor() {}
-	isEditorPopupShown: boolean = false;
 	updatePost: Post = {} as Post;
+	updateUser: User = {} as User;
 
-	toggleEditorPopup = () => {
-		this.isEditorPopupShown = !this.isEditorPopupShown;
+	public popups: { [key: string]: { isShown: boolean } } = {
+		editor: {
+			isShown: false,
+		},
+		"profile-editor": {
+			isShown: false,
+		},
 	};
 
-	closeEditorPopup = () => {
-		this.isEditorPopupShown = false;
-		this.updatePost = {} as Post;
+	togglePopup = (popupName: string) => {
+		this.popups[popupName].isShown = !this.popups[popupName].isShown;
 	};
 
-	openEditorPopup = (updatePost?: Post) => {
-		this.isEditorPopupShown = true;
-		if (updatePost) {
-			this.updatePost = updatePost;
+	closePopup = (popupName: string) => {
+		this.popups[popupName].isShown = false;
+	};
+
+	openPopup = (popupName: string, args?: any) => {
+		this.popups[popupName].isShown = true;
+		if (args && args.post) {
+			this.updatePost = args.post;
 		}
 	};
 }
