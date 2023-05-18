@@ -45,6 +45,7 @@ export class AuthService {
 					if (data != null) {
 						this.router.navigate(["/"]);
 						this.storeToken(data);
+						this.user = this.getStoredTokenUser() ?? ({} as User);
 					}
 				},
 				error: (err) => console.error(err),
