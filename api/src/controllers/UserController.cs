@@ -91,6 +91,10 @@ public class UserController
             ? existingUser.Fullname
             : updatedUser.Fullname;
         existingUser.Role = updatedUser.Role.IsNullOrEmpty() ? existingUser.Role : updatedUser.Role;
+        existingUser.Biography = updatedUser.Biography.IsNullOrEmpty() ? existingUser.Biography : updatedUser.Biography;
+        existingUser.ProfilePicture = updatedUser.ProfilePicture.IsNullOrEmpty()
+	        ? existingUser.ProfilePicture
+	        : updatedUser.ProfilePicture;
         // TODO: re-issue token after updating
         db.Users.Update(existingUser);
         await db.SaveChangesAsync();
