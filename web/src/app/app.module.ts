@@ -18,6 +18,7 @@ import { AuthInterceptor } from "./interceptors/auth/auth.interceptor";
 import { PostDetailComponent } from "./components/post-detail/post-detail.component";
 import { RouterModule } from "@angular/router";
 import { EditorPopupComponent } from "./components/editor-popup/editor-popup.component";
+import { ProfileEditorComponent } from "./components/profile-editor-popup/profile-editor-popup.component";
 
 @NgModule({
 	declarations: [
@@ -32,6 +33,7 @@ import { EditorPopupComponent } from "./components/editor-popup/editor-popup.com
 		PostformComponent,
 		PostDetailComponent,
 		EditorPopupComponent,
+		ProfileEditorComponent,
 	],
 	imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule, RouterModule],
 	providers: [

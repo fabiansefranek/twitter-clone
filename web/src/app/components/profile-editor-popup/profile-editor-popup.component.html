@@ -1,0 +1,66 @@
+<!-- Transparent Background -->
+<div class="absolute z-[99] w-full h-full top-0 left-0 bg-neutral-200 bg-opacity-10">
+	<!-- Popup -->
+	<div
+		class="z-50 gap-3 flex flex-col absolute top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%] bg-black rounded-xl w-[30vw] p-5 text-white overflow-hidden"
+	>
+		<!-- Header -->
+		<div class="flex flex-row items-center justify-between w-full">
+			<div class="flex flex-row items-center gap-4">
+				<img class="cursor-pointer" src="assets/x.svg" (click)="this.popupService.closePopup('profile-editor')" />
+				<p class="text-lg font-semibold text-white">Edit profile</p>
+			</div>
+			<button
+				class="px-4 py-1 font-bold text-white rounded-full bg-sky-500 hover:bg-sky-600 active:bg-sky-700"
+				(click)="handleSubmit()"
+			>
+				Save
+			</button>
+		</div>
+		<!-- Content -->
+		<div class="max-h-[50vh] overflow-y-scroll">
+			<!-- Banner -->
+			<div class="relative">
+				<img
+					src="https://images.wondershare.com/repairit/aticle/2021/08/twitter-header-photo-issues-1.jpg"
+					class="h-[20vh] object-cover w-full brightness-75"
+				/>
+				<div class="flex flex-row gap-2 absolute top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%]">
+					<img src="/assets/camera.svg" class="w-6 h-6 cursor-pointer" />
+					<img src="/assets/x.svg" class="w-6 h-6 cursor-pointer" />
+				</div>
+			</div>
+			<!-- Profile Picture -->
+			<div class="relative mb-3">
+				<div class="absolute top-[-4rem] left-[1rem]">
+					<img
+						src="{{ this.user.profilePicture || '/assets/profile.webp' }}"
+						class="object-cover w-32 h-32 border-4 border-black rounded-full brightness-75"
+					/>
+					<img
+						src="/assets/camera.svg"
+						class="cursor-pointer absolute top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%]"
+						(click)="this.openUrlPrompt(true)"
+					/>
+				</div>
+				<div class="h-[4rem] flex flex-row justify-end"></div>
+			</div>
+			<div class="flex flex-col gap-2">
+				<input
+					class="w-full px-3 py-4 text-white bg-transparent border rounded outline-none border-neutral-700 focus:border-sky-400 focus:border-2"
+					type="text"
+					placeholder="Name"
+					value="{{ this.authService.user.fullname }}"
+					[(ngModel)]="this.user.fullname"
+				/>
+				<textarea
+					class="w-full h-[10vh] px-3 py-4 text-white bg-transparent border rounded outline-none resize-none border-neutral-700 focus:border-sky-400 focus:border-2"
+					type="text"
+					placeholder="Bio"
+					[(ngModel)]="this.user.biography"
+					>{{ this.user.biography }}</textarea
+				>
+			</div>
+		</div>
+	</div>
+</div>

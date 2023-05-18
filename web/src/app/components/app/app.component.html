@@ -7,4 +7,5 @@
 	</main>
 	<div class="flex-1"></div>
 </div>
-<app-editor-popup *ngIf="this.popupService.isEditorPopupShown"></app-editor-popup>
+<app-editor-popup *ngIf="this.popupService.popups['editor'].isShown"></app-editor-popup>
+<app-profile-editor-popup *ngIf="this.popupService.popups['profile-editor'].isShown"></app-profile-editor-popup>

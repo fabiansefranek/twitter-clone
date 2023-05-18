@@ -77,7 +77,7 @@ export class PostComponent {
 	reportPost() {}
 
 	editPost() {
-		this.popupService.openEditorPopup(this.post);
+		this.popupService.openPopup("editor", { post: this.post });
 	}
 
 	deletePost() {
