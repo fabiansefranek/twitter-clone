@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Output } from "@angular/core";
 import { AuthService } from "src/app/services/auth/auth.service";
 import { PostService } from "src/app/services/post/post.service";
-import { Post } from "src/types";
+import { UserService } from "src/app/services/user/user.service";
+import { Post, User } from "src/types";
 
 @Component({
 	selector: "app-postform",
@@ -10,7 +11,16 @@ import { Post } from "src/types";
 })
 export class PostformComponent {
 	public text: string = "";
-	constructor(private postService: PostService, public authService: AuthService) {}
+	public user: User = {} as User;
+	constructor(private postService: PostService, public authService: AuthService, public userService: UserService) {}
+
+	ngOnInit() {
+		if (this.authService.user.username) {
+			this.userService.getUser(this.authService.user.username).subscribe((user) => {
+				if (user) this.user = user;
+			});
+		}
+	}
 
 	async handleSubmit() {
 		const user = await this.authService.getUser();
